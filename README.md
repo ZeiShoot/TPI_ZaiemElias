@@ -12,16 +12,19 @@
 
 - 10:05 : Fin de la pause. Après avoir établi les tâches principales dans le planning, je passe à l'élaboration du MCD.
 
-- 11:40 : Début de la pause de midi
+- 11:40 : J'ai terminé la base de données, j'attend la validation de mon prof de tpi. Début de la pause de midi
 
 ### Après-midi:
 
-- 12:40 : Remplir l'après-midi
+- 12:40 : Début de la création des maquettes (bientôt terminé).
+
+- 16:20 : J'ai complété le journal de bord concernant l'après-midi
 
 - 16:45 : Fin de la journée
 
   - Bilan:
     - Planning prévisionnel établi
+    - Maquettes commencées
     - Template Prête à l'emploi
     - La structure et les bases du projet sont posées
 
