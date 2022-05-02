@@ -12,10 +12,6 @@
 
 - 10:05 : Fin de la pause. Après avoir établi les tâches principales dans le planning, je passe à l'élaboration du MCD.
 
-### MCD Initial (Fourni dans l'énoncé du TPI) 🛠️
-
-<img src="../Documents/Ressources/BaseDeDonnees.PNG" height="auto;">
-
 - 11:40 : Début de la pause de midi
 
 ### Après-midi:
