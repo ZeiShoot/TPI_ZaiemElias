@@ -40,23 +40,28 @@
 
 - 9:40 : Début de la pause
 
-- 10:05 : Fin de la pause.
+- 10:05 : Fin de la pause. Je suis allé posé des questions à mon prof de tpi (Mr. Garchery), il m'a réexpliqué certains point de l'énoncé qui n'étaient pas clairs.
+          Il m'a demander de faire autrement que sur mes maquettes. Je dois donc les re faires... C'est parti !
 
 - 11:40 : Début de la pause de midi
 
 ### Après-midi:
 
-- 12:40 : 
+- 12:40 : Toujours en train de faire les maquettes :)
+ 
+ - 15:00 J'ai enfin terminé la version finale des maquettes, je les ai envoyé à Mr.Garchery, j'attends sa réponse.
+         Je n'étais pas satisfait de ma plannification, je l'ai donc re faite entièrement, avec des tâches plus détaillées, j'ai envoyé mon planning à mon prof.
+ 
+ - 15:10 J'ai complété mon journal de bord, je commence donc le design de mon site. Une fois cela terminé je pourrais commencé à vraiment coder !
 
-- 16:20 : J'ai complété le journal de bord concernant l'après-midi
+- 16:20 : J'ai re complété le journal de bord concernant cette après-midi qui était assez speed ! Demain je continuerai les différentes pages de mon site.
 
 - 16:45 : Fin de la journée
 
   - Bilan:
-    - Planning prévisionnel établi
-    - Maquettes commencées
-    - Template Prête à l'emploi
-    - La structure et les bases du projet sont posées
+    - Planning retravaillé et terminé.
+    - Maquettes terminées.
+    - Premières pages du site terminées.
 
 
 ## <u>3ème jour - 04/05/2022</u>
