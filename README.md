@@ -30,6 +30,35 @@
 
 
 ## <u>2ème jour - 03/05/2022</u>
+
+### Matin:
+
+- 7:30 : Une fois arrivé en classe, j'ai découvert que l'écran de mon ordinateur portable c'est cassé dans mon sac durant mon trajet Maison-Ecole. J'ai donc du trouver          un écran dans l'établissement pour pouvoir continuer à travailler (J'avais fais plusieurs backups sur différents périphériques).
+
+- 8:00 : Je peux enfin commencer à travailler. Je continue les maquettes de mon site sur drawIo. J'avais une question à propos de l'ergonomie de mon site web, j'ai              demandé à Monsieur Bonvin de m'aider. Nous avons étudier la question qui était : "dois-je faire une page séparément de ma page d'accueil pour pouvoir                  liker/unliker une production ?"
+         Il m'a dit d'appliquer la règle des 3 cliques, donc de devoir faire faire le moins de click possibles à mes utilisateurs. J'ai donc décidé de mettre l'option          like/unlike sur ma page d'accueil directement. Les informations concernant la production seront aussi affiché sur la page d'accueil (voir les maquettes*).
+
+- 9:40 : Début de la pause
+
+- 10:05 : Fin de la pause.
+
+- 11:40 : Début de la pause de midi
+
+### Après-midi:
+
+- 12:40 : 
+
+- 16:20 : J'ai complété le journal de bord concernant l'après-midi
+
+- 16:45 : Fin de la journée
+
+  - Bilan:
+    - Planning prévisionnel établi
+    - Maquettes commencées
+    - Template Prête à l'emploi
+    - La structure et les bases du projet sont posées
+
+
 ## <u>3ème jour - 04/05/2022</u>
 ## <u>4ème jour - 05/05/2022</u>
 ## <u>5ème jour - 09/05/2022</u>
