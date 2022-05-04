@@ -291,6 +291,12 @@ small.text-muted {
     }
 }
 
+@media (max-width: 1000px) {
+    #fname {
+        margin-top: 70px;
+    }
+}
+
 
 /*
  * off canvas sidebar
