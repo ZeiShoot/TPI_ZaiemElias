@@ -78,16 +78,18 @@
 
 - 10:05 : Fin de la pause. Je commence la création de mes différentes pages, avec comme objectif de les faires ressembler au maximum aux maquettes.
 
-- 11:40 : Début de la pause de midi
+- 11:40 : Début de la pause de midi, je continuerai cette après-midi le design des pages.
 
 ### Après-midi:
 
-- 12:40 : 
+- 12:40 : Je commence à faire les pages principales de mon site + le formulaire de connexion/inscription utilisateur.
  
-- 16:45 : Fin de la journée
+- 16:35 : Fin de la journée, je complète le journal de bord et envoie mon planning + journal de bord à mes experts tpi.
 
   - Bilan:
-    - ***
+    - Premières pages du sites fonctionnelles
+    - Formulaire de connexion et inscription terminé + bugs corrigés
+    - Documentation avancée (les maquettes restent encore à expliquer)
 	
 ## <u>4ème jour - 05/05/2022</u>
 ## <u>5ème jour - 09/05/2022</u>
