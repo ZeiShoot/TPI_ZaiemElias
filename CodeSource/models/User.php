@@ -5,6 +5,7 @@ class User
     private $idUser;
     private $FirstName;
     private $LastName;
+    private $UserName;
     private $Email;
     private $PasswordChiffrer;
 
@@ -71,6 +72,26 @@ class User
     }
 
     /**
+     * Get the value of LastName
+     */
+    public function getUserName()
+    {
+        return $this->UserName;
+    }
+
+    /**
+     * Set the value of LastName
+     *
+     * @return  self
+     */
+    public function setUserName($UserName)
+    {
+        $this->UserName = $UserName;
+
+        return $this;
+    }
+
+    /**
      * Get the value of Email
      */
     public function getEmail()
@@ -110,7 +131,7 @@ class User
         return $this;
     }
 
-    // methodes
+    // methode de hash (sha256)
     public static function ChiffrerPassword($passwordClair)
     {
         return hash('sha256', $passwordClair);
@@ -122,8 +143,8 @@ class User
         $email = $user->getEmail();
         $passwordHash = User::ChiffrerPassword($user->getPasswordChiffrer());
 
-        $req = MonPdo::getInstance()->prepare("SELECT * FROM users WHERE Email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM utilisateurs WHERE email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();
@@ -143,20 +164,22 @@ class User
     {
         $FirstName = $user->getFirstName();
         $LastName = $user->getLastName();
+        $UserName = $user->getUserName();
         $Email = $user->getEmail();
         $PasswordChiffrer = User::ChiffrerPassword($user->getPasswordChiffrer());
 
-        $req = MonPdo::getInstance()->prepare("INSERT INTO users(FirstName, LastName, Email, PasswordChiffrer) VALUES(:FIRSTNAME, :LASTNAME, :EMAIL, :PASSWORDCHIFFRER)");
+        $req = MonPdo::getInstance()->prepare("INSERT INTO utilisateurs(firstname, lastname, username, email, passwordchiffrer) VALUES(:FIRSTNAME, :LASTNAME, :USERNAME, :EMAIL, :PASSWORDCHIFFRER)");
         $req->bindParam(':FIRSTNAME', $FirstName);
         $req->bindParam(':LASTNAME', $LastName);
+        $req->bindParam(':USERNAME', $UserName);
         $req->bindParam(':EMAIL', $Email);
         $req->bindParam(':PASSWORDCHIFFRER', $PasswordChiffrer);
         $req->execute();
     }
     public static function IsEmailAvailable($email)
     {
-        $req = MonPdo::getInstance()->prepare("SELECT Email FROM users WHERE Email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $req = MonPdo::getInstance()->prepare("SELECT email FROM utilisateurs WHERE email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();
@@ -169,10 +192,13 @@ class User
             return false;
         }
     }
-    public static function GetUserInfo(User $user)
+
+    //A revoir :
+
+    /*public static function GetUserInfo(User $user)
     {
-        $req = MonPdo::getInstance()->prepare("SELECT Email FROM users WHERE Email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $req = MonPdo::getInstance()->prepare("SELECT email FROM utilisateurs WHERE email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();
@@ -184,5 +210,5 @@ class User
             //Sinon dit qu'il existe déjà
             return false;
         }
-    }
+    }*/
 }

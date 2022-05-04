@@ -292,8 +292,11 @@ small.text-muted {
 }
 
 @media (max-width: 1000px) {
-    #fname {
-        margin-top: 70px;
+    #idLabelPrenom {
+        margin-top: 50px;
+    }
+    #idLabelEmail {
+        margin-top: 50px;
     }
 }
 
