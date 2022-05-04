@@ -12,17 +12,21 @@
         ];
     }
     ?>
-    <h1>Modification d'un post</h1>
+    <h1>Modification d'une production</h1>
 
-    <!-- Formulaire de création de posts -->
+    <!-- Formulaire de modification d'une production -->
     <form method="POST" action="index.php?uc=post&action=validateEdit" enctype="multipart/form-data">
+    <div class="form-group">
+            <label for="idTitreProduction">Titre : </label>
+            <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction"><?= $post->getTitreProduction() ?></textarea>
+        </div>
         <div class="form-group">
-            <label for="idDescriptionPost">Description : </label>
-            <textarea class="form-control" id="idDescriptionPost" rows="5" name="descriptionPost"><?= $post->getCommentairePost() ?></textarea>
+            <label for="idDescriptionProduction">Description : </label>
+            <textarea class="form-control" id="idDescriptionProduction" rows="4" name="descriptionProduction"><?= $post->getDescriptionProduction() ?></textarea>
         </div>
 
         <div class="form-group">
-            <label>Fichier(s) contenus dans le post : </label>
+            <label>Fichier contenu dans la production : </label>
             <div style="display: flex; flex-direction: row; flex-wrap: wrap; flex-flow :center; width: 100%">
             <?php
             foreach (Media::getAllMediasByPostId($idPost) as $media) {
@@ -63,8 +67,8 @@
         </div>
 
         <div class="form-group">
-            <label for="idFile">Ajouter des fichiers au post : </label>
-            <input type="file" class="form-control-file" id="idFile" accept="image/*, video/*, audio/*" multiple name="filesPost[]">
+            <label for="idFile">Changer l'image de la production : </label>
+            <input type="file" class="form-control-file" id="idFile" accept="image" name="filesProduction[]">
         </div>
 
         <input class="btn btn-success" type="submit" value="Confirmer la modification">

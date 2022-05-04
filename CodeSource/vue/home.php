@@ -26,8 +26,8 @@
 						'content' => null
 					];
 				}
-				foreach ($posts as $post) {
-					$medias = Media::getAllMediasByPostId($post->getIdPost());
+				foreach ($production as $production) {
+					$medias = Media::getAllMediasByPostId($production->getIdProduction());
 				?>
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -36,14 +36,14 @@
 								<!-- main col left -->
 								<div class="col-sm-6">
 									<!-- Informations sur le post (date et date de la dernière modification) -->
-									<p>Date du post : <?= date_format(date_create($post->getCreationDatePost()), 'd m Y, H:i:s'); ?>
+									<p>Date de la production : <?= date_format(date_create($production->getDateCreation()), 'd m Y, H:i:s'); ?>
 										<br>
-										Modifé le : <?= date_format(date_create($post->getModificationDatePost()), 'd m Y, H:i:s'); ?>
+										Modifée le : <?= date_format(date_create($production->getDateModification()), 'd m Y, H:i:s'); ?>
 									</p>
 								</div>
 								<div class="col-sm-6" style="text-align: right;">
-									<a class="btn btn-primary" href="index.php?uc=post&action=edit&idPost=<?= $post->getIdPost() ?>">Modifier</a>
-									<a class="btn btn-danger" href="index.php?uc=post&action=delete&idPost=<?= $post->getIdPost() ?>">X</a>
+									<a class="btn btn-primary" href="index.php?uc=post&action=edit&idPost=<?= $production->getIdProduction() ?>">Modifier</a>
+									<a class="btn btn-danger" href="index.php?uc=post&action=delete&idPost=<?= $production->getIdProduction() ?>">X</a>
 								</div>
 							</div>
 							</h4>
@@ -92,11 +92,11 @@
 								if ($count > 1) {
 								?>
 									<!-- Carousel, pour faire défiler les images/vidéo/audios -->
-									<a class="left carousel-control" href="#carousel<?= $post->getIdPost(); ?>" role="button" data-slide="prev">
+									<a class="left carousel-control" href="#carousel<?= $production->getIdProduction(); ?>" role="button" data-slide="prev">
 										<span class="icon-prev" aria-hidden="true"></span>
 										<span class="sr-only">Précédent</span>
 									</a>
-									<a class="right carousel-control" href="#carousel<?= $post->getIdPost(); ?>" role="button" data-slide="next">
+									<a class="right carousel-control" href="#carousel<?= $production->getIdProduction(); ?>" role="button" data-slide="next">
 										<span class="icon-next" aria-hidden="true"></span>
 										<span class="sr-only">Suivant</span>
 									</a>
@@ -106,7 +106,7 @@
 
 							</div>
 							<br>
-							<p class="lead"><?= $post->getCommentairePost(); ?></p>
+							<p class="lead"><?= $production->getDescriptionProduction(); ?></p>
 						</div>
 					</div>
 
@@ -139,7 +139,7 @@
 			</div>
 			<div class="col-sm-6">
 				<p>
-					<a href="index.php" class="pull-right">© Elias Zaiem 2022</a>
+					<a href="index.php" class="pull-right">© Elias Zaiem Mai 2022</a>
 				</p>
 			</div>
 		</div>

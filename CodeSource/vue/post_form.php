@@ -13,16 +13,20 @@
     }
     ?>
     <!--Visuel du formulaire de post-->
-    <h1>Partager un Post sur votre blog !</h1>
+    <h1>Publiez une production sur Foto'Gal !</h1>
     <form method="POST" action="index.php?uc=post&action=validate" enctype="multipart/form-data">
         <!--Formulaire d'envoi du post-->
         <div class="form-group">
-            <label for="idDescriptionPost">Description du post</label>
-            <textarea class="form-control" id="idDescriptionPost" rows="5" name="descriptionPost"></textarea>
+            <label for="idTitreProduction">Titre de la production :</label>
+            <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction"></textarea>
         </div>
         <div class="form-group">
-            <label for="idFile">Image/Vidéo/Audio/Gif</label>
-            <input type="file" class="form-control-file" id="idFile" accept="image/*, video/*, audio/*" multiple name="filesPost[]">
+            <label for="idDescriptionProduction">Description de la production :</label>
+            <textarea class="form-control" id="idDescriptionProduction" rows="4" name="descriptionProduction"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="idFile">Image</label>
+            <input type="file" class="form-control-file" id="idFile" accept="image" name="filesPost[]">
         </div>
         <input class="btn btn-success" type="submit" value="Publier">
     </form>
