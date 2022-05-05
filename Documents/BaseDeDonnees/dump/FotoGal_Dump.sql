@@ -82,7 +82,11 @@ CREATE TABLE `productions` (
   `filename` varchar(255) NOT NULL,
   `categories_idCategorie` int(11) NOT NULL,
   `utilisateurs_idUser` int(11) NOT NULL,
-  PRIMARY KEY (`idProduction`)
+  PRIMARY KEY (`idProduction`),
+  KEY `productions_FK` (`categories_idCategorie`),
+  KEY `productions_FK_1` (`utilisateurs_idUser`),
+  CONSTRAINT `productions_FK` FOREIGN KEY (`categories_idCategorie`) REFERENCES `categories` (`idCategorie`),
+  CONSTRAINT `productions_FK_1` FOREIGN KEY (`utilisateurs_idUser`) REFERENCES `utilisateurs` (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,8 +109,10 @@ DROP TABLE IF EXISTS `utilisateurs`;
 CREATE TABLE `utilisateurs` (
   `idUser` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
-  `password` char(128) NOT NULL,
-  `_est_admin` binary(1) DEFAULT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `passwordchiffrer` varchar(255) NOT NULL,
   PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -133,4 +139,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-02 13:46:04
+-- Dump completed on 2022-05-04 16:37:46
