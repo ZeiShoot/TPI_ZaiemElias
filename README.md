@@ -92,6 +92,26 @@
     - Documentation avancée (les maquettes restent encore à expliquer)
 	
 ## <u>4ème jour - 05/05/2022</u>
+
+### Matin:
+
+- 7:30 : Aujourd'hui je vais commencer ma journée par un peu de documentation, par la suite je vais avancer les pages du site puis commencer à mettre en place les 	    premières fonctionnalités.
+
+- 9:40 : Début de la pause
+
+- 10:05 : Fin de la pause.
+
+- 11:40 : Début de la pause de midi
+
+### Après-midi:
+
+- 12:40 : 
+ 
+- 16:35 : Fin de la journée
+
+  - Bilan:
+    - 
+    
 ## <u>5ème jour - 09/05/2022</u>
 ## <u>6ème jour - 10/05/2022</u>
 ## <u>7ème jour - 11/05/2022</u>
