@@ -5,9 +5,9 @@ class User
     private $idUser;
     private $FirstName;
     private $LastName;
-    private $UserName;
     private $Email;
     private $PasswordChiffrer;
+    private $UserName;
 
 
 
@@ -52,6 +52,26 @@ class User
     }
 
     /**
+     * Get the value of FirstName
+     */
+    public function getUserName()
+    {
+        return $this->UserName;
+    }
+
+    /**
+     * Set the value of FirstName
+     *
+     * @return  self
+     */
+    public function setUserName($UserName)
+    {
+        $this->UserName = $UserName;
+
+        return $this;
+    }
+
+    /**
      * Get the value of LastName
      */
     public function getLastName()
@@ -67,26 +87,6 @@ class User
     public function setLastName($LastName)
     {
         $this->LastName = $LastName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of LastName
-     */
-    public function getUserName()
-    {
-        return $this->UserName;
-    }
-
-    /**
-     * Set the value of LastName
-     *
-     * @return  self
-     */
-    public function setUserName($UserName)
-    {
-        $this->UserName = $UserName;
 
         return $this;
     }
@@ -131,20 +131,24 @@ class User
         return $this;
     }
 
-    // methode de hash (sha256)
+    // methodes
     public static function ChiffrerPassword($passwordClair)
     {
         return hash('sha256', $passwordClair);
     }
 
+    public static function ModificationProfil(User $user)
+    {
+        
+    }
 
     public static function ConnectUser(User $user)
     {
         $email = $user->getEmail();
         $passwordHash = User::ChiffrerPassword($user->getPasswordChiffrer());
 
-        $req = MonPdo::getInstance()->prepare("SELECT * FROM utilisateurs WHERE email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
+        $req = MonPdo::getInstance()->prepare("SELECT Email,PasswordChiffrer FROM utilisateurs WHERE Email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();
@@ -162,24 +166,24 @@ class User
 
     public static function CreateUser(User $user)
     {
+        $UserName = $user->getUserName();
         $FirstName = $user->getFirstName();
         $LastName = $user->getLastName();
-        $UserName = $user->getUserName();
         $Email = $user->getEmail();
         $PasswordChiffrer = User::ChiffrerPassword($user->getPasswordChiffrer());
 
-        $req = MonPdo::getInstance()->prepare("INSERT INTO utilisateurs(firstname, lastname, username, email, passwordchiffrer) VALUES(:FIRSTNAME, :LASTNAME, :USERNAME, :EMAIL, :PASSWORDCHIFFRER)");
+        $req = MonPdo::getInstance()->prepare("INSERT INTO utilisateurs(FirstName, LastName, Email, PasswordChiffrer, UserName) VALUES(:FIRSTNAME, :LASTNAME, :EMAIL, :PASSWORDCHIFFRER, :USERNAME)");
         $req->bindParam(':FIRSTNAME', $FirstName);
         $req->bindParam(':LASTNAME', $LastName);
-        $req->bindParam(':USERNAME', $UserName);
         $req->bindParam(':EMAIL', $Email);
         $req->bindParam(':PASSWORDCHIFFRER', $PasswordChiffrer);
+        $req->bindParam(':USERNAME', $UserName);
         $req->execute();
     }
     public static function IsEmailAvailable($email)
     {
-        $req = MonPdo::getInstance()->prepare("SELECT email FROM utilisateurs WHERE email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
+        $req = MonPdo::getInstance()->prepare("SELECT Email FROM utilisateurs WHERE Email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();
@@ -192,13 +196,10 @@ class User
             return false;
         }
     }
-
-    //A revoir :
-
     /*public static function GetUserInfo(User $user)
     {
-        $req = MonPdo::getInstance()->prepare("SELECT email FROM utilisateurs WHERE email = :email;");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'utilisateurs');
+        $req = MonPdo::getInstance()->prepare("SELECT Email FROM users WHERE Email = :email;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
         $req->bindParam(':email', $email);
         $req->execute();
         $result = $req->fetch();

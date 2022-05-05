@@ -32,19 +32,27 @@ switch ($action) {
                 ->setPasswordChiffrer($password);
 
             $result = User::ConnectUser($user);
-            if ($result) {
+            if ($result != false) {
                 $_SESSION['connectedUser'] = [
                     'isConnected' => true,
                     'idUser' => $result->getIdUser(),
                     'email' => $result->getEmail()
                 ];
                 header('Location: index.php');
-                exit;
+                
             } else {
-                echo 'infos incorrect';
+                $_SESSION['AlertMessage'] = [
+                    "type" => "danger",
+                    "message" => "Ce mail n'existe pas"
+                ];
+                header("Location: index.php?uc=login&action=ShowLoginForm");
             }
         } else {
-            echo "Les champs doivent être Remplis";
+            $_SESSION['AlertMessage'] = [
+                "type" => "danger",
+                "message" => "Merci de remplir tout les champs."
+            ];
+            header("Location : index.php?uc=login&action=ShowLoginForm");
         }
 
         break;
@@ -56,12 +64,13 @@ switch ($action) {
         $lastname = filter_input(INPUT_POST, 'LastName', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'Email', FILTER_SANITIZE_EMAIL);
         $password = filter_input(INPUT_POST, 'Password', FILTER_DEFAULT);
+        $username = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_STRING);
         $confirmpassword = filter_input(INPUT_POST, 'ConfirmPassword', FILTER_DEFAULT);
-        if ($firstname != "" && $lastname != "" && $email != "" && $password != "" && $confirmpassword != "") {
+        if ($firstname != "" && $lastname != "" && $email != "" && $password != "" && $confirmpassword != "" && $username != "") {
             if ($password == $confirmpassword) {
                 if (User::IsEmailAvailable($email)) {
                     $user = new User();
-                    $user->setFirstName($firstname)->setLastName($lastname)->setEmail($email)->setPasswordChiffrer($password);
+                    $user->setFirstName($firstname)->setLastName($lastname)->setEmail($email)->setPasswordChiffrer($password)->setUserName($username);
                     User::CreateUser($user);
                     header("Location:index.php?uc=login&action=ShowLoginForm");
                     exit;

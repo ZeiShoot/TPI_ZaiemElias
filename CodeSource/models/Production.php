@@ -5,8 +5,10 @@ class Production
     private $idProduction;
     private $titre;
     private $description;
-    private $dateCreation;
-    private $dateModification;
+    private $date_soumission;
+    private $date_modification;
+    private $filename;
+    private $categories_idCategorie;
     private $compteurPost;
 
 
@@ -87,9 +89,9 @@ class Production
     
 
     //Récup la valeur de la creationDate
-    public function getDateCreation()
+    public function getDate_soumission()
     {
-        return $this->dateCreation;
+        return $this->date_soumission;
     }
 
     /**
@@ -97,17 +99,17 @@ class Production
      *
      * @return  self
      */
-    public function setDateCreation($dateCreation)
+    public function setDate_soumission($date_soumission)
     {
-        $this->dateCreation = $dateCreation;
+        $this->date_soumission = $date_soumission;
 
         return $this;
     }
 
     //Récup la valeur de la modificationDate
-    public function getDateModification()
+    public function getDate_modification()
     {
-        return $this->dateModification;
+        return $this->date_modification;
     }
 
     /**
@@ -115,15 +117,53 @@ class Production
      *
      * @return  self
      */
-    public function setDateModification($dateModification)
+    public function setDate_modification($date_modification)
     {
-        $this->dateModification = $dateModification;
+        $this->date_modification = $date_modification;
 
         return $this;
     }
 
 
+  /**
+     * Get the value of categories_idCategorie
+     */ 
+    public function getCategories_idCategorie()
+    {
+        return $this->categories_idCategorie;
+    }
 
+    /**
+     * Set the value of categories_idCategorie
+     *
+     * @return  self
+     */ 
+    public function setCategories_idCategorie($categories_idCategorie)
+    {
+        $this->categories_idCategorie = $categories_idCategorie;
+
+        return $this;
+    }
+
+     /**
+     * Get the value of filename
+     */ 
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set the value of filename
+     *
+     * @return  self
+     */ 
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
 
 
     /***************************************************************************/
@@ -134,8 +174,8 @@ class Production
     {
         $titre = $production->getTitreProduction();
         $description = $production->getDescriptionProduction();
-        $date_soumission = $production->getDateCreation();
-        $date_modification = $production->getDateModification();
+        $date_soumission = $production->getDate_soumission();
+        $date_modification = $production->getDate_modification();
 
         $req = MonPdo::getInstance()->prepare("INSERT INTO productions(titre, description, date_soumission, date_modification) VALUES(:titre, :description, :date_soumission, :date_modification);");
         $req->bindParam(":titre", $titre);
@@ -160,11 +200,11 @@ class Production
     {
         $titre = $production->getTitreProduction();
         $description = $production->getDescriptionProduction();
-        $date = $production->getDateModification();
+        $date_modification = $production->getDate_modification();
         $req = MonPdo::getInstance()->prepare("UPDATE productions SET titre = :titre, description = :description, date_modification = :date_modification");
         $req->bindParam(":titre", $titre);
         $req->bindParam(":description", $description);
-        $req->bindParam(":date_modification", $date);
+        $req->bindParam(":date_modification", $date_modification);
         $req->execute();
     }
 
@@ -219,4 +259,8 @@ class Production
         $result = $req->fetch();
         return $result;
     }
+
+  
+
+   
 }

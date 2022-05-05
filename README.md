@@ -106,16 +106,18 @@
 - 10:33 : J'ai terminé mon plan de test, j'ai push sur github tout ce que j'ai fais ce matin. Une backup à été faite sur ma clé usb et sur le drive.
 		  Je peux maintenant continuer le design de mes pages principales afin de pouvoir commencer à coder au plus vite !
 
-- 11:40 : Début de la pause de midi
+- 11:40 : Début de la pause de midi.
 
 ### Après-midi:
 
-- 12:40 : 
+- 12:40 : Je continue la mise en forme de mes pages et commence l'affichage de mes productions sur la page d'accueil.
  
-- 16:35 : Fin de la journée
+- 16:45 : Fin de la journée, j'ai bien avancé mais j'ai encore beaucoup de choses à faire. Je complète mon journal de bord et continuerai lundi. Enfin le week-end !
 
   - Bilan:
-    - 
+    - Page de connexion/inscription officiellement terminées et fonctionnelles.
+	- Page d'accueil qui affiche les productions (pas encore terminé).
+	- Documentation avancée.
     
 ## <u>5ème jour - 09/05/2022</u>
 ## <u>6ème jour - 10/05/2022</u>

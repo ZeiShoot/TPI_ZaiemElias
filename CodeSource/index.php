@@ -2,27 +2,28 @@
 //Démarrage de la session
 session_start();
 
-//Include des fichiers nécéssaires
-include 'models/db_connect.php';
-include 'models/Production.php';
-include 'models/Media.php';
-include 'models/User.php';
-
-
-if (!isset($_SESSION['message'])) {
-    $_SESSION['message'] = [
-        'type' => null,
-        'content' => null
-    ];
-    $_SESSION['idEditPost'] = null;
-
+if (!isset($_SESSION['connectedUser'])) {
     $_SESSION['connectedUser'] =[
         'isConnected' => false,
         'idUser' => null,
         'email' => null
     ];
+    $_SESSION['idEditPost'] = null;
+
+    $_SESSION['AlertMessage'] = [
+        'type' => null,
+        'message' => null
+    ];
 }
 ini_set('display_errors', 1);
+
+//Include des fichiers nécéssaires
+require("models/db_connect.php");
+require("models/Production.php");
+require("models/Media.php");
+require("models/User.php");
+require("models/Categorie.php");
+
 $uc = filter_input(INPUT_GET, 'uc') == null ? "home" : filter_input(INPUT_GET, 'uc'); //Page d'accueil par défaut
 
 

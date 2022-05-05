@@ -5,10 +5,10 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta charset="utf-8">
-  <title>ZeiShoot Blog</title>
+  <title>Foto'Gal</title>
   <!--Link des css-->
   <link href="assets/css/bootstrap.css" rel="stylesheet">
-  <link href="assets/css/facebook.css" rel="stylesheet">
+  <link href="assets/css/FotoGal.css" rel="stylesheet">
   <link href="./assets/css/custom.css" rel="stylesheet">
 </head>
 
@@ -30,15 +30,22 @@
                   <li>
                     <a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                   </li>
-                  <li>
-                    <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-pencil"></i> Poster</a>
-                  </li>
+
 
                   <?php
                   if ($_SESSION['connectedUser']['isConnected'] == false) {
                   ?>
                     <li>
                       <a href="index.php?uc=login&action=ShowLoginForm"><i class="glyphicon glyphicon-plus"></i> Connecter-vous</a>
+                    </li>
+                  <?php
+                  } else {
+                  ?>
+                    <li>
+                      <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-pencil"></i> Poster</a>
+                    </li>
+                    <li>
+                      <a href="index.php?uc=trier&action=show"><i class="glyphicon glyphicon-pencil"></i> Trier</a>
                     </li>
                   <?php
                   }
@@ -54,10 +61,9 @@
                       <!--Icone Compte-->
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
                       <ul class="dropdown-menu">
-                        <li><a href="">Accueil</a></li>
-                        <li><a href="index.php?uc=login&action=ShowProfile">Compte</a></li>
-                        <li><a href="">Paramètre</a></li>
-                        <li><a href="index.php?uc=login&action=disconnect">Déconnexion</a></li>
+                        <li><a href="index.php?uc=login&action=ShowProfile">Mon profil</a></li>
+                        <li><a href="index.php?uc=login&action=EditProfile">Paramètre</a></li>
+                        <li><a href="index.php?uc=login&action=disconnect">Se Déconnecter</a></li>
                       </ul>
                     </li>
                   <?php
