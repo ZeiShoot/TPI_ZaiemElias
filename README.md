@@ -120,6 +120,27 @@
 	- Documentation avancée.
     
 ## <u>5ème jour - 09/05/2022</u>
+
+### Matin:
+
+- 7:30 : Aujourd'hui je vais créer la page de tri et terminer la page d'accueil + afficher les productions par ordre chronologique.
+
+- 9:40 : Début de la pause,je continue mes activitées.
+
+- 11:40 : Début de la pause de midi. J'ai fini la page trier
+
+### Après-midi:
+
+- 12:40 : Je commence la fonctionnalité de publication des productions.
+ 
+- 16:45 : Fin de la journée, j'ai avancé mais je ne suis pas satisfait de ma journée, j'étais pas dans le truc... il faut que j'avance mieux demain !
+
+  - Bilan:
+    - Correction bugs dans le design de certaines pages
+	- Affichage par date de publications sur l'acceuil (il me reste à limiter le nombre de productionsa affichées, dix maximum)
+	- Fonction pour poster une production (pas terminé)
+	- Page de tri terminée, il me reste plus qu'a faire la fonction qui tri.
+	
 ## <u>6ème jour - 10/05/2022</u>
 ## <u>7ème jour - 11/05/2022</u>
 ## <u>8ème jour - 12/05/2022</u>
