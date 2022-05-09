@@ -9,7 +9,8 @@ class Production
     private $date_modification;
     private $filename;
     private $categories_idCategorie;
-    private $compteurPost;
+    private $user_idUser;
+    private $compteurCategorie;
 
 
     //Récup la valeur du idPost
@@ -35,7 +36,7 @@ class Production
     {
         return $this->titre;
     }
-    
+
     /**
      * Set the value of titre
      *
@@ -86,7 +87,7 @@ class Production
         return $this;
     }
 
-    
+
 
     //Récup la valeur de la creationDate
     public function getDate_soumission()
@@ -125,9 +126,9 @@ class Production
     }
 
 
-  /**
+    /**
      * Get the value of categories_idCategorie
-     */ 
+     */
     public function getCategories_idCategorie()
     {
         return $this->categories_idCategorie;
@@ -137,7 +138,7 @@ class Production
      * Set the value of categories_idCategorie
      *
      * @return  self
-     */ 
+     */
     public function setCategories_idCategorie($categories_idCategorie)
     {
         $this->categories_idCategorie = $categories_idCategorie;
@@ -146,8 +147,28 @@ class Production
     }
 
      /**
+     * Get the value of user_idUser
+     */
+    public function getUser_idUser()
+    {
+        return $this->user_idUser;
+    }
+
+    /**
+     * Set the value of user_idUser
+     *
+     * @return  self
+     */
+    public function setUser_idUser($user_idUser)
+    {
+        $this->user_idUser = $user_idUser;
+
+        return $this;
+    }
+
+    /**
      * Get the value of filename
-     */ 
+     */
     public function getFilename()
     {
         return $this->filename;
@@ -157,7 +178,7 @@ class Production
      * Set the value of filename
      *
      * @return  self
-     */ 
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
@@ -167,7 +188,7 @@ class Production
 
 
     /***************************************************************************/
-                                    //Fonctions//
+    //Fonctions//
 
     // Ajout de la production en base de données
     public static function AddProduction(Production $production)
@@ -176,12 +197,18 @@ class Production
         $description = $production->getDescriptionProduction();
         $date_soumission = $production->getDate_soumission();
         $date_modification = $production->getDate_modification();
+        $filename = $production->getFilename();
+        $categories_idCategorie = $production->getCategories_idCategorie();
+        $user_idUser = $production->getUser_idUser();
 
-        $req = MonPdo::getInstance()->prepare("INSERT INTO productions(titre, description, date_soumission, date_modification) VALUES(:titre, :description, :date_soumission, :date_modification);");
+        $req = MonPdo::getInstance()->prepare("INSERT INTO productions(titre, description, date_soumission, date_modification, filename, idCategorie, idUser) VALUES(:titre, :description, :date_soumission, :date_modification, :idCategorie, :idUser);");
         $req->bindParam(":titre", $titre);
         $req->bindParam(":description", $description);
         $req->bindParam(":date_soumission", $date_soumission);
         $req->bindParam(":date_modification", $date_modification);
+        $req->bindParam(":filename", $filename);
+        $req->bindParam(":categories_idCategorie", $categories_idCategorie);
+        $req->bindParam(":utilisateur_idUser", $user_idUser);
         $req->execute(); // executer la requette
 
         return MonPdo::getInstance()->lastInsertId();
@@ -260,7 +287,40 @@ class Production
         return $result;
     }
 
-  
+    //Fonction qui converti en Mo les Octets
+    public static function ConvertOctetsToMO($octets)
+    {
+        // 1mo = 1 048 576 octets
+        return $octets / 1000000;
+    }
 
-   
+    //Génère un nom d'image aléatoire pour ne pas avoir les mêmes noms dans les médias. (stockés sur le serveur)
+    public static function GenerateRandomImageName()
+    {
+        $alphabet = range('a', 'z');
+        $newImageName = "";
+        for ($i = 0; $i < 26; $i++) {
+            $newImageName .= $alphabet[rand(0, 25)];
+        }
+        return $newImageName;
+    }
+
+    // Ajoute un média dans la base de données WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+    public static function AddMedia(Media $media)
+    {
+        $typeMedia = $media->getTypeMedia();
+        $nomFichierMedia = $media->getNomFichierMedia();
+        $creationDate = $media->getCreationDate();
+        $modificationDate = $media->getModificationDate();
+        $idPost = $media->getIdPost();
+        $req = MonPdo::getInstance()->prepare("INSERT INTO media(typeMedia, nomFichierMedia, creationDate, modificationDate, idPost) VALUES(:typeMedia, :nomFichierMedia, :creationDate, :modificationDate, :idPost);");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Media'); // methode de fetch
+        $req->bindParam(":typeMedia", $typeMedia);
+        $req->bindParam(":nomFichierMedia", $nomFichierMedia);
+        $req->bindParam(":creationDate", $creationDate);
+        $req->bindParam(":modificationDate", $modificationDate);
+        $req->bindParam(":idPost", $idPost);
+        $req->execute(); // executer la requette
+
+    }
 }

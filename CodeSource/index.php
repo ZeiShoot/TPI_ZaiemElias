@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['connectedUser'])) {
-    $_SESSION['connectedUser'] =[
+    $_SESSION['connectedUser'] = [
         'isConnected' => false,
         'idUser' => null,
         'email' => null
@@ -44,6 +44,9 @@ switch ($uc) {
         break;
     case 'post':
         include 'controllers/post_controller.php';
+        break;
+    case 'trier':
+        include 'controllers/tri_controller.php';
         break;
 
     case 'getAllPosts':

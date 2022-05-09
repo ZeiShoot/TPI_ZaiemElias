@@ -13,6 +13,9 @@ switch ($action) {
         $fichiersArray = $_FILES["filesPost"];
         $titreProduction = filter_input(INPUT_POST, 'titreProduction', FILTER_SANITIZE_STRING);
         $descriptionProduction = filter_input(INPUT_POST, 'descriptionProduction', FILTER_SANITIZE_STRING);
+        $categorieProduction = filter_input(INPUT_POST, 'categorieProduction', FILTER_SANITIZE_STRING);
+        $UserProduction = filter_input(INPUT_POST, 'userProduction', FILTER_SANITIZE_STRING);
+        $filenameProduction = filter_input(INPUT_POST, 'filesPost', FILTER_SANITIZE_STRING);
 
 
 
@@ -71,9 +74,12 @@ switch ($action) {
             $production = new Production();
             $production->setTitreProduction($titreProduction)
                 ->setDescriptionProduction($descriptionProduction)
-                ->setDateCreation($currentDate)
-                ->setDateModification($currentDate);
-            $idpProduction = Post::AddPost($post);
+                ->setDate_soumission($currentDate)
+                ->setDate_modification($currentDate)
+                ->setFilename($filename)
+                ->setCategories_idCategorie($categorieProduction);
+
+            $idpProduction = Production::AddProduction($production);
 
             // on crée les médias dans la base de données
             $dirFile = "./assets/medias/";
@@ -253,7 +259,7 @@ switch ($action) {
                     $production = new Production();
                     $production->setTitreProduction($titreProduction)
                         ->setDescriptionProduction($descriptionPost)
-                        ->setDateModification($currentDate);
+                        ->setDate_soumission($currentDate);
                     Production::UpdateProduction($production);
                     $idProduction = $_SESSION['idEditPost'];
 

@@ -39,20 +39,19 @@ switch ($action) {
                     'email' => $result->getEmail()
                 ];
                 header('Location: index.php');
-                
             } else {
                 $_SESSION['AlertMessage'] = [
                     "type" => "danger",
-                    "message" => "Ce mail n'existe pas"
+                    "message" => "Un des champs n'est pas correct, veuillez réessayer..."
                 ];
-                header("Location: index.php?uc=login&action=ShowLoginForm");
+                //header("Location: index.php?uc=login&action=ShowLoginForm");
             }
         } else {
             $_SESSION['AlertMessage'] = [
                 "type" => "danger",
                 "message" => "Merci de remplir tout les champs."
             ];
-            header("Location : index.php?uc=login&action=ShowLoginForm");
+            //header("Location : index.php?uc=login&action=ShowLoginForm");
         }
 
         break;
@@ -75,13 +74,25 @@ switch ($action) {
                     header("Location:index.php?uc=login&action=ShowLoginForm");
                     exit;
                 } else {
-                    echo "l'email existe déjà";
+                    header("Location:index.php?uc=login&action=ShowRegisterForm");
+                    $_SESSION['AlertMessage'] = [
+                        "type" => "danger",
+                        "message" => "L'email existe déjà ! Veuillez en choisir un autre."
+                    ];
                 }
             } else {
-                echo "Les mots de passes ne correspondent pas";
+                header("Location:index.php?uc=login&action=ShowRegisterForm");
+                $_SESSION['AlertMessage'] = [
+                    "type" => "danger",
+                    "message" => "Les mots de passes ne correspondent pas !"
+                ];
             }
         } else {
-            echo "Les champs doivent être Remplis";
+            header("Location:index.php?uc=login&action=ShowRegisterForm");
+            $_SESSION['AlertMessage'] = [
+                "type" => "danger",
+                "message" => "Merci de remplir tout les champs."
+            ];
         }
         break;
 

@@ -20,16 +20,16 @@
         <!--Formulaire d'envoi du post-->
         <div class="form-group">
             <label for="idTitreProduction">Titre de la production :</label>
-            <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction"></textarea>
+            <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction" required></textarea>
         </div>
         <div class="form-group">
             <label for="idDescriptionProduction">Description de la production :</label>
-            <textarea class="form-control" id="idDescriptionProduction" rows="4" name="descriptionProduction"></textarea>
+            <textarea class="form-control" id="idDescriptionProduction" rows="4" name="descriptionProduction" required></textarea>
         </div>
         <div class="form-group">
             <label for="select-categorie">Catégorie :</label>
 
-            <select name="categories" id="select-categorie">
+            <select name="categorieProduction" id="select-categorie" required>
                 <option value="">--Choisissez une catégorie--</option>
                 <option value="Moto">Moto</option>
                 <option value="Voiture">Voiture</option>
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="idFile">Image</label>
-            <input type="file" class="form-control-file" id="idFile" accept="image" name="filesPost[]">
+            <input type="file" class="form-control-file" id="idFile" accept="image" name="filesPost[]" required>
         </div>
         <input class="btn btn-success" type="submit" value="Publier">
     </form>

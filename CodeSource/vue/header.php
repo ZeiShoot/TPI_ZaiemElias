@@ -45,7 +45,7 @@
                       <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-pencil"></i> Poster</a>
                     </li>
                     <li>
-                      <a href="index.php?uc=trier&action=show"><i class="glyphicon glyphicon-pencil"></i> Trier</a>
+                      <a href="index.php?uc=trier&action=ShowTriForm"><i class="glyphicon glyphicon-pencil"></i> Trier</a>
                     </li>
                   <?php
                   }

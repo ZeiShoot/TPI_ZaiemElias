@@ -196,14 +196,6 @@ class Media
         $req->execute();
     }
 
-
-
-
-
-
-
-
-
     // récupère le nom du fichier en fonction de son id
     public static function GetMediaNameById($idMedia)
     {

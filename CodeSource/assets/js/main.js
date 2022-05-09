@@ -4,7 +4,7 @@ if (document.getElementById('idNumberOfPosts') != null) {
         method: 'GET',
         redirect: 'follow'
     };
-    fetch("index.php?uc=getAllPosts", requestOptions).then(function(response) {
+    fetch("index.php?uc=getAllProductions", requestOptions).then(function(response) {
             return response.json();
         })
         .then(function(myDatas) {
