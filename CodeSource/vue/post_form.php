@@ -8,9 +8,9 @@
             </button>
         </div>
     <?php
-        $_SESSION['message'] = [
+        $_SESSION['AlertMessage'] = [
             'type' => null,
-            'content' => null
+            'message' => null
         ];
     }
     ?>
@@ -30,19 +30,19 @@
             <label for="select-categorie">Catégorie :</label>
 
             <select name="categorieProduction" id="select-categorie" required>
-                <option value="">--Choisissez une catégorie--</option>
-                <option value="Moto">Moto</option>
-                <option value="Voiture">Voiture</option>
-                <option value="Animaux">Animaux</option>
-                <option value="Paysage">Paysage</option>
-                <option value="Nourriture">Nourriture</option>
-                <option value="Informatique">Informatique</option>
+                <?php
+                foreach (Categorie::GetAllCategories() as $categorie) {
+                ?>
+                    <option value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></option>
+                <?php
+                }
+                ?>
             </select>
         </div>
 
         <div class="form-group">
             <label for="idFile">Image</label>
-            <input type="file" class="form-control-file" id="idFile" accept="image" name="filesPost[]" required>
+            <input type="file" class="form-control-file" id="idFile" accept="image/jpg, image/png" name="filesPost[]" required>
         </div>
         <input class="btn btn-success" type="submit" value="Publier">
     </form>

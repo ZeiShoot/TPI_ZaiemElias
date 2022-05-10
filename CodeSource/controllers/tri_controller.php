@@ -3,9 +3,9 @@
 
 $action = filter_input(INPUT_GET, 'action');
 switch ($action) {
-        //Visuel de la page de Post
+        //Visuel de la page de tri
     case 'ShowTriForm':
-        //Affiche le formulaire de post
+        //Affiche la page trier.
         include 'vue/trier_form.php';
         break;
 

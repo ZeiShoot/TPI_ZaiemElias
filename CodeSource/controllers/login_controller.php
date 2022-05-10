@@ -5,13 +5,22 @@ $action = filter_input(INPUT_GET, 'action');
 switch ($action) {
         //Visuel de la page de Post
     case 'ShowLoginForm':
-        //Affiche le formulaire de post
-        include 'vue/login_form.php';
+        if ($_SESSION['connectedUser']['isConnected'] == false) {
+            //Affiche le formulaire de post
+            include 'vue/login_form.php';
+        } else {
+            header('Location: index.php');
+        }
         break;
 
     case 'ShowRegisterForm':
-        //Affiche le formulaire de post
-        include 'vue/register_form.php';
+        if ($_SESSION['connectedUser']['isConnected'] == false) {
+            //Affiche le formulaire de post
+            include 'vue/register_form.php';
+        } else {
+            header('Location: index.php');
+        }
+
         break;
 
     case 'disconnect':
@@ -36,7 +45,8 @@ switch ($action) {
                 $_SESSION['connectedUser'] = [
                     'isConnected' => true,
                     'idUser' => $result->getIdUser(),
-                    'email' => $result->getEmail()
+                    'email' => $result->getEmail(),
+                    'isAdmin' => $result->getIsAdmin()
                 ];
                 header('Location: index.php');
             } else {
@@ -44,14 +54,16 @@ switch ($action) {
                     "type" => "danger",
                     "message" => "Un des champs n'est pas correct, veuillez réessayer..."
                 ];
-                //header("Location: index.php?uc=login&action=ShowLoginForm");
+                header("Location: index.php?uc=login&action=ShowLoginForm");
+                exit();
             }
         } else {
             $_SESSION['AlertMessage'] = [
                 "type" => "danger",
                 "message" => "Merci de remplir tout les champs."
             ];
-            //header("Location : index.php?uc=login&action=ShowLoginForm");
+            header("Location : index.php?uc=login&action=ShowLoginForm");
+            exit();
         }
 
         break;

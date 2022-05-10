@@ -146,7 +146,7 @@ class Production
         return $this;
     }
 
-     /**
+    /**
      * Get the value of user_idUser
      */
     public function getUser_idUser()
@@ -193,22 +193,25 @@ class Production
     // Ajout de la production en base de données
     public static function AddProduction(Production $production)
     {
+        
         $titre = $production->getTitreProduction();
         $description = $production->getDescriptionProduction();
         $date_soumission = $production->getDate_soumission();
         $date_modification = $production->getDate_modification();
         $filename = $production->getFilename();
-        $categories_idCategorie = $production->getCategories_idCategorie();
-        $user_idUser = $production->getUser_idUser();
+        $idCategorie = $production->getCategories_idCategorie();
+        $idUser = $production->getUser_idUser();
 
-        $req = MonPdo::getInstance()->prepare("INSERT INTO productions(titre, description, date_soumission, date_modification, filename, idCategorie, idUser) VALUES(:titre, :description, :date_soumission, :date_modification, :idCategorie, :idUser);");
+
+        $req = MonPdo::getInstance()->prepare("INSERT INTO productions(titre, description, date_soumission, date_modification, filename, categories_idCategorie , utilisateurs_idUser) VALUES(:titre, :descriptionPost, :date_soumission, :date_modification, :filenamePost, :idCategorie, :idUser);");
         $req->bindParam(":titre", $titre);
-        $req->bindParam(":description", $description);
+        $req->bindParam(":descriptionPost", $description);
         $req->bindParam(":date_soumission", $date_soumission);
         $req->bindParam(":date_modification", $date_modification);
-        $req->bindParam(":filename", $filename);
-        $req->bindParam(":categories_idCategorie", $categories_idCategorie);
-        $req->bindParam(":utilisateur_idUser", $user_idUser);
+        $req->bindParam(":filenamePost", $filename);
+        $req->bindParam(":idCategorie", $idCategorie);
+        $req->bindParam(":idUser", $idUser);
+
         $req->execute(); // executer la requette
 
         return MonPdo::getInstance()->lastInsertId();
@@ -305,7 +308,7 @@ class Production
         return $newImageName;
     }
 
-    // Ajoute un média dans la base de données WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+    // Ajoute un média dans la base de données
     public static function AddMedia(Media $media)
     {
         $typeMedia = $media->getTypeMedia();

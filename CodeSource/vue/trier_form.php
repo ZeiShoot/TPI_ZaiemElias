@@ -2,24 +2,24 @@
     <div class="panel panel-default" style="width: 100%;">
         <div class="panel-heading">
             <h4>Choisissez la catégorie que vous souhaitez trier : </h4>
-            <select name="categories" id="select-categorie" required>
-                <option value="">--Catégorie à trier--</option>
-                <option value="Moto">Moto</option>
-                <option value="Voiture">Voiture</option>
-                <option value="Animaux">Animaux</option>
-                <option value="Paysage">Paysage</option>
-                <option value="Nourriture">Nourriture</option>
-                <option value="Informatique">Informatique</option>
+            <select name="categorieProduction" id="select-categorie" required>
+                <?php
+                foreach (Categorie::GetAllCategories() as $categorie) {
+                ?>
+                    <option value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></option>
+                <?php
+                }
+                ?>
             </select>
         </div>
         <div class="panel-heading">
             <h2>Trier par : </h2>
             <select name="typeTri" id="select-tri" required>
-                <option value="">--Catégorie à trier--</option>
                 <option value="Date">Date de publication</option>
                 <option value="Likes">Nombre de Likes</option>
                 <option value="Likes">Dernière modification</option>
             </select>
+
         </div>
     </div>
 </div>
@@ -51,10 +51,20 @@
                         <td><?= $production->getDate_soumission() ?></td>
                         <td><?= $production->getDate_modification() ?></td>
                         <td>
-                            <a class="btn btn-success">Like</a>&nbsp;&nbsp;<a class="btn btn-danger">Dislike</a><br>
-                            <a>Vous avez </a>Liker/Unliker<a> cette publication.</a>
+                            <?php
+                            $likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
+                            if ($likeUnlike == false) {                            ?>
+                                <a class="btn btn-success" href="index.php?uc=post&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
+                                <a class="btn btn-danger" href="index.php?uc=post&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
+                            <?php
+                            } else {
+                            ?>
+                                <a>Vous avez <?= $likeUnlike == 1 ? "like" : "dislike" ?> cette publication.</a>
+                            <?php
+                            }
+                            ?>
                         </td>
-                        <td><a class="btn btn-info">Voir</a></td>
+                        <td><a class="btn btn-info" href="index.php?uc=post&action=showDetail&id=<?= $production->getIdProduction() ?>">Voir</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

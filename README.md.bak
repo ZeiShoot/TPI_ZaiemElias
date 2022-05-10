@@ -123,7 +123,7 @@
 
 ### Matin:
 
-- 7:30 : Aujourd'hui je vais créer la page de tri et terminer la page d'accueil.
+- 7:30 : Aujourd'hui je vais créer la page de tri et terminer la page d'accueil + afficher les productions par ordre chronologique.
 
 - 9:40 : Début de la pause,je continue mes activitées.
 
@@ -142,6 +142,30 @@
 	- Page de tri terminée, il me reste plus qu'a faire la fonction qui tri.
 	
 ## <u>6ème jour - 10/05/2022</u>
+
+### Matin:
+
+- 7:30 : Aujourd'hui je vais continuer ma page de post.
+
+- 9:30 : J'ai un bug sur la page de post, la requette ne s'execute pas.
+
+- 9:40 : Je laisse tomber la page de post pour aujourd'hui, je vais ajouter la fonctionnalité de like/dislike.
+
+- 11:40 : Début de la pause de midi.
+
+### Après-midi:
+
+- 12:40 : Je continue l'implémentation du système de like/dislike.
+
+- 14:35 : J'ai terminé le système de like/dislike, je continue d'essayer de corriger le bug de la page poste.
+ 
+- 16:45 : Fin de la journée, j'ai réussi à faire le système de like/dislike et la page de détails.
+
+  - Bilan:
+    - Système de like/dislike
+	- Page détails d'une production
+	- Post d'une production avancé mais un bug est survenu.
+	
 ## <u>7ème jour - 11/05/2022</u>
 ## <u>8ème jour - 12/05/2022</u>
 ## <u>9ème jour - 16/05/2022</u>

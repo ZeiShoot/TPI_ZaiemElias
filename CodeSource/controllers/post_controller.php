@@ -10,138 +10,118 @@ switch ($action) {
         break;
     case 'validate':
         //Récupération de la description et récupération du/des fichier(s)
-        $fichiersArray = $_FILES["filesPost"];
+        $fichier = $_FILES["filesPost"];
         $titreProduction = filter_input(INPUT_POST, 'titreProduction', FILTER_SANITIZE_STRING);
         $descriptionProduction = filter_input(INPUT_POST, 'descriptionProduction', FILTER_SANITIZE_STRING);
         $categorieProduction = filter_input(INPUT_POST, 'categorieProduction', FILTER_SANITIZE_STRING);
-        $UserProduction = filter_input(INPUT_POST, 'userProduction', FILTER_SANITIZE_STRING);
-        $filenameProduction = filter_input(INPUT_POST, 'filesPost', FILTER_SANITIZE_STRING);
-
 
 
         //Si tout les champs sont remplis alors :
-        if ($titreProduction != "" && $descriptionPost != "" && $fichiersArray['name'][0] != "") {
-
-            $newImagesArray = [];
-            $totalMo = 0;
-            for ($i = 0; $i < count($fichiersArray['name']); $i++) {
-
-                //Vérification du type de fichier (si c'est bien une image ou non)
-                if (explode("/", $fichiersArray['type'][$i])[0] != "image") {
-                    $_SESSION['message'] = [
-                        'type' => "danger",
-                        'content' => "Seulement les images sont supportées !"
-                    ];
-                    header('Location: index.php?uc=post&action=show');
-                }
+        if ($titreProduction != "" && $descriptionProduction != "" && $categorieProduction != "" && $fichier['name'][0] != "") {
 
 
-
-
-                // vérification de la taille totale de des fichiers afin de ne pas dépacer 10 Mo
-                if ($totalMo > 10) {
-                    $_SESSION['message'] = [
-                        'type' => "danger",
-                        'content' => "La taille totale des fichier ne doit pas dépasser 10 Mo !"
-                    ];
-                    header('Location: index.php?uc=post&action=show');
-                }
-
-                $fileMo = Media::ConvertOctetsToMO($fichiersArray['size'][$i]);
-                // vérifie la taille de chaque image afin de ne pas dépacer 5 Mo
-                if ($fileMo > 5) {
-                    $_SESSION['message'] = [
-                        'type' => "danger",
-                        'content' => "L'image ne doit pas dépasser les 5 Mo !"
-                    ];
-                    header('Location: index.php?uc=post&action=show');
-                } else {
-                    $totalMo .= $fileMo;
-                }
-
-                $newImagesArray[$i] = [
-                    "name" => $fichiersArray['name'][$i],
-                    "type" => $fichiersArray['type'][$i],
-                    "tmp_name" => $fichiersArray['tmp_name'][$i],
-                    "size" => $fichiersArray['size'][$i]
-                ];
-            }
-            //Transaction (début)
-            MonPdo::getInstance()->beginTransaction();
-            //Récupère la date du jour
-            $currentDate = date("Y/m/d/H/i/s");
-            // on crée la production dans la base de données
-            $production = new Production();
-            $production->setTitreProduction($titreProduction)
-                ->setDescriptionProduction($descriptionProduction)
-                ->setDate_soumission($currentDate)
-                ->setDate_modification($currentDate)
-                ->setFilename($filename)
-                ->setCategories_idCategorie($categorieProduction);
-
-            $idpProduction = Production::AddProduction($production);
-
-            // on crée les médias dans la base de données
-            $dirFile = "./assets/medias/";
-            try {
-                foreach ($newImagesArray as $imageArray) {
-                    $randomName = Media::GenerateRandomImageName() . "." . explode("/", $imageArray['type'])[1];
-
-                    while (file_exists($dirFile . $randomName)) {
-                        $randomName = Media::GenerateRandomImageName() . "." . explode("/", $imageArray['type'])[1];
-                    }
-
-                    $filepath = $dirFile . $randomName;
-
-                    if (move_uploaded_file($imageArray['tmp_name'], $filepath)) {
-                        $media = new Media();
-                        $media->setTypeMedia($imageArray['type'])
-                            ->setNomFichierMedia($randomName)
-                            ->setCreationDate($currentDate)
-                            ->setModificationDate($currentDate)
-                            ->setIdPost($idPost);
-                        Media::AddMedia($media);
-                    } else {
-                        //Rollback en cas d'échec, + affiche un message d'erreur
-                        MonPdo::getInstance()->rollBack();
-                        $_SESSION['message'] = [
-                            'type' => "danger",
-                            //Message d'erreur
-                            'content' => "OOPS ! Une erreur lors du Post est survenue..."
-                        ];
-                        header('Location: index.php?uc=post&action=show');
-                    }
-                }
-            } catch (Exception $e) {
-                MonPdo::getInstance()->rollBack();
-                $_SESSION['message'] = [
+            //Vérification du type de fichier (si c'est bien une image ou non)
+            if (explode("/", $fichier['type'][0])[0] != "image") {
+                $_SESSION['AlertMessage'] = [
                     'type' => "danger",
-                    'content' => "OOPS ! Une erreur lors du Post est survenue..."
+                    'message' => "Seulement les images sont supportées !"
                 ];
                 header('Location: index.php?uc=post&action=show');
             }
 
-            //Commit vers la base de données
-            MonPdo::getInstance()->commit();
+            $fileMo = Production::ConvertOctetsToMO($fichier['size'][0]);
+            // vérifie la taille de chaque image afin de ne pas dépacer 5 Mo
+            if ($fileMo > 5) {
+                $_SESSION['AlertMessage'] = [
+                    'type' => "danger",
+                    'message' => "L'image ne doit pas dépasser les 5 Mo !"
+                ];
+                header('Location: index.php?uc=post&action=show');
+            }
+
+            //Récupère la date du jour
+            $currentDate = date("Y-m-d H:i:s");
+            $dir = "./assets/medias/";
+
+            // génère un nom aléatoire
+            $randomName = Production::GenerateRandomImageName() . "." . explode("/", $fichier['type'][0])[1];
+
+            // si le nom aléatoire existe déjà, on en regénère un
+            while (file_exists($dir . $randomName)) {
+                $randomName = Production::GenerateRandomImageName() . "." . explode("/", $fichier['type'][0])[1];
+            }
+
+            if (move_uploaded_file($fichier['tmp_name'][0], $dir . $randomName)) {
+                // on crée la production dans la base de données
+                $production = new Production();
+                $production->setTitreProduction($titreProduction)
+                    ->setDescriptionProduction($descriptionProduction)
+                    ->setDate_soumission($currentDate)
+                    ->setDate_modification($currentDate)
+                    ->setFilename($randomName)
+                    ->setCategories_idCategorie($categorieProduction)
+                    ->setUser_idUser($_SESSION['connectedUser']['idUser']);
+                Production::AddProduction($production);
+            } else {
+                // retourne un message d'erreur si les champs ne sonts pas remplis
+                $_SESSION['AlertMessage'] = [
+                    'type' => "danger",
+                    'message' => "L'image n'a pas pu être publié  !"
+                ];
+                header('Location: index.php?uc=post&action=show');
+            }
 
             //Si le post à été créer, afficher un message de réussite.
-            $_SESSION['message'] = [
+            $_SESSION['AlertMessage'] = [
                 'type' => "success",
-                'content' => "Vous avez posté avec succès !"
+                'message' => "Vous avez posté avec succès !"
             ];
             header('Location: index.php?');
         } else {
             // retourne un message d'erreur si les champs ne sonts pas remplis
-            $_SESSION['message'] = [
+            $_SESSION['AlertMessage'] = [
                 'type' => "danger",
-                'content' => "Tout les champs doivent êtres rempli  !"
+                'message' => "Tout les champs doivent êtres rempli  !"
             ];
             header('Location: index.php?uc=post&action=show');
         }
-
-
         break;
 
+    case 'showDetail':
+        $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $production = Production::GetProdutionById($idPost);
+        include 'vue/postDetail.php';
+        break;
+
+    case 'like':
+        $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $like = new LikeUnlike();
+        $like->setLike(1)
+            ->setUtilisateurs_idUser($_SESSION['connectedUser']['idUser'])
+            ->setProduction_idProduction($idPost);
+        $like->LikePost();
+
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "Vous avez like le post"
+        ];
+        header('Location: index.php');
+        break;
+
+    case 'dislike':
+        $idPost = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $like = new LikeUnlike();
+        $like->setLike(2)
+            ->setUtilisateurs_idUser($_SESSION['connectedUser']['idUser'])
+            ->setProduction_idProduction($idPost);
+        $like->LikePost();
+
+        $_SESSION['AlertMessage'] = [
+            'type' => "danger",
+            'message' => "Vous avez dislike le post"
+        ];
+        header('Location: index.php');
+        break;
 
         // supprime un post
     case 'delete':

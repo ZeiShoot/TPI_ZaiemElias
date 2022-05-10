@@ -8,6 +8,7 @@ class User
     private $Email;
     private $PasswordChiffrer;
     private $UserName;
+    private $isAdmin;
 
 
 
@@ -112,6 +113,26 @@ class User
     }
 
     /**
+     * Get the value of isAdmin
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * Set the value of Email
+     *
+     * @return  self
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    /**
      * Get the value of PasswordChiffrer
      */
     public function getPasswordChiffrer()
@@ -139,7 +160,6 @@ class User
 
     public static function ModificationProfil(User $user)
     {
-        
     }
 
     public static function ConnectUser(User $user)
@@ -147,7 +167,7 @@ class User
         $email = $user->getEmail();
         $passwordHash = User::ChiffrerPassword($user->getPasswordChiffrer());
 
-        $req = MonPdo::getInstance()->prepare("SELECT Email,PasswordChiffrer FROM utilisateurs WHERE Email = :email;");
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM utilisateurs WHERE Email = :email;");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
         $req->bindParam(':email', $email);
         $req->execute();
@@ -171,13 +191,15 @@ class User
         $LastName = $user->getLastName();
         $Email = $user->getEmail();
         $PasswordChiffrer = User::ChiffrerPassword($user->getPasswordChiffrer());
+        $isAdmin = 1;
 
-        $req = MonPdo::getInstance()->prepare("INSERT INTO utilisateurs(FirstName, LastName, Email, PasswordChiffrer, UserName) VALUES(:FIRSTNAME, :LASTNAME, :EMAIL, :PASSWORDCHIFFRER, :USERNAME)");
+        $req = MonPdo::getInstance()->prepare("INSERT INTO utilisateurs(FirstName, LastName, Email, PasswordChiffrer, UserName, isAdmin) VALUES(:FIRSTNAME, :LASTNAME, :EMAIL, :PASSWORDCHIFFRER, :USERNAME, :ISADMIN)");
         $req->bindParam(':FIRSTNAME', $FirstName);
         $req->bindParam(':LASTNAME', $LastName);
         $req->bindParam(':EMAIL', $Email);
         $req->bindParam(':PASSWORDCHIFFRER', $PasswordChiffrer);
         $req->bindParam(':USERNAME', $UserName);
+        $req->bindParam(':ISADMIN', $isAdmin);
         $req->execute();
     }
     public static function IsEmailAvailable($email)

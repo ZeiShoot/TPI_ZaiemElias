@@ -53,5 +53,14 @@ class Categorie{
 
         return $result->getNom();
     }
+
+    public static function GetAllCategories(){
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM categories");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Categorie');
+        $req->execute();
+        $result = $req->fetchAll();
+
+        return $result;
+    }
+
 }
-?>

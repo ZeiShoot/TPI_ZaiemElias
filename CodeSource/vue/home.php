@@ -1,4 +1,19 @@
 <div class="container">
+<?php
+    if ($_SESSION['AlertMessage']['type'] != null) { ?>
+        <div class="alert alert-<?= $_SESSION['AlertMessage']['type'] ?> alert-dismissible show" role="alert">
+            <?= $_SESSION['AlertMessage']['message'] ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php
+        $_SESSION['AlertMessage'] = [
+            'type' => null,
+            'message' => null
+        ];
+    }
+    ?>
 	<div class="panel panel-default" style="width: 100%;">
 		<div class="panel-heading">
 			<h4>Bienvenue sur Foto'Gal</h4>
@@ -38,10 +53,20 @@
 						<td><?= $production->getDate_soumission() ?></td>
 						<td><?= $production->getDate_modification() ?></td>
 						<td>
-							<a class="btn btn-success">Like</a>&nbsp;&nbsp;<a class="btn btn-danger">Dislike</a><br>
-							<a>Vous avez </a>Liker/Unliker<a> cette publication.</a>
+							<?php
+							$likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
+								if($likeUnlike == false){							?>
+							<a class="btn btn-success" href="index.php?uc=post&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
+							<a class="btn btn-danger" href="index.php?uc=post&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
+							<?php
+							}else{
+							?>
+							<a>Vous avez <?= $likeUnlike == 1 ? "liké": "disliké" ?> cette publication.</a>
+							<?php
+							}
+							?>
 						</td>
-						<td><a class="btn btn-info">Voir</a></td>
+						<td><a class="btn btn-info" href="index.php?uc=post&action=showDetail&id=<?= $production->getIdProduction() ?>">Voir</a></td>
 					</tr>
 				<?php } ?>
 			</tbody>

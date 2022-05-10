@@ -8,7 +8,7 @@
 class MonPdo
 {
     private static $serveur = 'mysql:host=localhost';
-    private static $bdd = 'dbname=FotoGal';
+    private static $bdd = 'dbname=fotogal';
     private static $user = 'FotoGal_Admin';
     private static $mdp = 'FGEZ_2022';
     private static $monPdo;

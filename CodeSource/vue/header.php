@@ -59,7 +59,20 @@
                   ?>
                     <li class="dropdown">
                       <!--Icone Compte-->
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                        <?php
+                        if ($_SESSION['connectedUser']['isAdmin'] == 2) {
+                        ?>
+                          <i class="glyphicon glyphicon-star"></i>
+                        <?php
+                        } else {
+                        ?>
+                          <i class="glyphicon glyphicon-user"></i>
+                        <?php
+                        }
+                        ?>
+                      </a>
                       <ul class="dropdown-menu">
                         <li><a href="index.php?uc=login&action=ShowProfile">Mon profil</a></li>
                         <li><a href="index.php?uc=login&action=EditProfile">Paramètre</a></li>
