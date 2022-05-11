@@ -1,9 +1,10 @@
 <div class="container">
     <div class="panel panel-default" style="width: 100%;">
         <div class="panel-heading">
-            <h4>Choisissez la catégorie que vous souhaitez trier : </h4>
+            <h3>Choisissez la catégorie que vous souhaitez trier : </h3>
             <select name="categorieProduction" id="select-categorie" required>
                 <?php
+                // Va chercher les catégories dans la base de données et les affiche ensuite dans la liste déroulante.
                 foreach (Categorie::GetAllCategories() as $categorie) {
                 ?>
                     <option value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></option>
@@ -15,6 +16,7 @@
         <div class="panel-heading">
             <h2>Trier par : </h2>
             <select name="typeTri" id="select-tri" required>
+                <!-- Implémenter le système de tri ici ! -->
                 <option value="Date">Date de publication</option>
                 <option value="Likes">Nombre de Likes</option>
                 <option value="Likes">Dernière modification</option>

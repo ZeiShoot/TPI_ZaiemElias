@@ -1,4 +1,4 @@
-<div class="col-xs-4 container">
+<div class="container" style="display: block; margin-top: 3vh; position:relative;">
     <img id="ImageDetails" src="./assets/medias/<?= $production->getFilename() ?>" alt="<?= $production->getTitreProduction() ?>" width="50%"><br>
     <?php
     $likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
@@ -12,7 +12,7 @@
     <?php
     }
     ?>
-    <div class="container">
+    <div class="form-group">
         <div class="col-xs-3">
             <h4>Titre de la production : </h4>
             <input type="text" id="titre" name="titre" value="<?= $production->getTitreProduction() ?>" readonly><br>
@@ -23,7 +23,7 @@
             <h4>Nom du fichier d'originie : </h4>
             <input type="text" id="filename" name="filename" value="<?= $production->getFilename() ?>" readonly><br>
         </div>
-        <div class="col-xs-3 container-paragraph">
+        <div class="form-group">
             <h4>Date de soumission : </h4>
             <input type="text" id="date_soumission" name="date_soumission" value="<?= $production->getDate_soumission() ?>" readonly><br>
             <h4>Date de modification : </h4>

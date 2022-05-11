@@ -49,6 +49,9 @@ switch ($uc) {
     case 'trier':
         include 'controllers/tri_controller.php';
         break;
+    case 'admin':
+        include 'controllers/admin_controller.php';
+        break;
 
     case 'getAllPosts':
         echo Production::CountAllProduction();

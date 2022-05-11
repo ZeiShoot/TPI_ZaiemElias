@@ -2,6 +2,7 @@
 /* Controleur si tout va bien lors du post*/
 
 $action = filter_input(INPUT_GET, 'action');
+
 switch ($action) {
         //Visuel de la page de Post
     case 'ShowLoginForm':
@@ -14,6 +15,7 @@ switch ($action) {
         break;
 
     case 'ShowRegisterForm':
+
         if ($_SESSION['connectedUser']['isConnected'] == false) {
             //Affiche le formulaire de post
             include 'vue/register_form.php';
@@ -77,6 +79,15 @@ switch ($action) {
         $password = filter_input(INPUT_POST, 'Password', FILTER_DEFAULT);
         $username = filter_input(INPUT_POST, 'UserName', FILTER_SANITIZE_STRING);
         $confirmpassword = filter_input(INPUT_POST, 'ConfirmPassword', FILTER_DEFAULT);
+
+        $_SESSION["UserInfos"] = [
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
+            'password' => $password,
+            'username' => $username
+        ];
+
         if ($firstname != "" && $lastname != "" && $email != "" && $password != "" && $confirmpassword != "" && $username != "") {
             if ($password == $confirmpassword) {
                 if (User::IsEmailAvailable($email)) {
@@ -98,6 +109,7 @@ switch ($action) {
                     "type" => "danger",
                     "message" => "Les mots de passes ne correspondent pas !"
                 ];
+                exit();
             }
         } else {
             header("Location:index.php?uc=login&action=ShowRegisterForm");
@@ -105,14 +117,35 @@ switch ($action) {
                 "type" => "danger",
                 "message" => "Merci de remplir tout les champs."
             ];
+            exit();
         }
         break;
 
-    default:
-        include 'vue/erreur404.php';
-        break;
+
 
     case 'ShowProfile':
         include 'vue/profile.php';
+        break;
+
+    case 'changePassword':
+        include 'vue/changePassword.php';
+        break;
+
+    case 'randomPasswordGeneration':
+
+        $user = new User();
+        $user->setEmail($_POST['EmailRecovery']);
+        $password = User::RecoverPassword($user);
+
+        include 'vue/generationNouveauMdp.php';
+        break;
+
+    case 'ShowForgotPassword':
+        include 'vue/mdpOublier.php';
+        break;
+
+    default:
+        //Page d'erreur
+        include 'vue/erreur404.php';
         break;
 }

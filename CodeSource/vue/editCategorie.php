@@ -1,0 +1,28 @@
+<div class="container">
+    <?php
+    if ($_SESSION['AlertMessage']['type'] != null) { ?>
+        <div class="alert alert-<?= $_SESSION['AlertMessage']['type'] ?> alert-dismissible show" role="alert">
+            <?= $_SESSION['AlertMessage']['message'] ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php
+        $_SESSION['AlertMessage'] = [
+            'type' => null,
+            'message' => null
+        ];
+    }
+    ?>
+    <div class="panel panel-default" style="width: 100%;">
+        <div class="panel-heading">
+            <h2>Modification d'une catégorie</h2>
+        </div>
+        <div class="panel-body">
+            <p>Pour modifier la catégorie sélectionnée, il suffit de changer le nom de celle-ci et de valider en cliquant sur le bouton "Valider les changements".</p>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-default" href="index.php?uc=admin&action=ShowAdminPannel">Retour</a>
+    </div>
+</div>

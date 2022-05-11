@@ -193,7 +193,7 @@ class Production
     // Ajout de la production en base de données
     public static function AddProduction(Production $production)
     {
-        
+
         $titre = $production->getTitreProduction();
         $description = $production->getDescriptionProduction();
         $date_soumission = $production->getDate_soumission();
@@ -262,9 +262,6 @@ class Production
         $lesResultats = $req->fetchAll();
         return $lesResultats;
     }
-
-
-
 
     //Compteur de production(s)
     public static function CountAllProduction()

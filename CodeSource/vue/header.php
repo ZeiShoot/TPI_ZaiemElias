@@ -74,8 +74,14 @@
                         ?>
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a href="index.php?uc=login&action=ShowProfile">Mon profil</a></li>
-                        <li><a href="index.php?uc=login&action=EditProfile">Paramètre</a></li>
+                        <li><a href="index.php?uc=login&action=ShowProfile">Mon Profil</a></li>
+                        <?php
+                        if ($_SESSION['connectedUser']['isAdmin'] == 2) {
+                        ?>
+                          <li><a href="index.php?uc=admin&action=ShowAdminPannel">Panneau Administratif</a></li>
+                        <?php
+                        } ?>
+
                         <li><a href="index.php?uc=login&action=disconnect">Se Déconnecter</a></li>
                       </ul>
                     </li>

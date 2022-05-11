@@ -63,4 +63,12 @@ class Categorie{
         return $result;
     }
 
+    //Supprime la catégorie selon son Id
+    public static function DeleteCategorie($idCategorie)
+    {
+        $req = MonPdo::getInstance()->prepare("DELETE FROM categories WHERE idCategorie = :idCategorie AND nom = :nom");
+        $req->bindParam(":idCategorie", $idCategorie);
+        $req->execute();
+    }
+
 }

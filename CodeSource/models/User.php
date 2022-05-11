@@ -234,4 +234,20 @@ class User
             return false;
         }
     }*/
+
+    public static function RecoverPassword(User $user)
+    {
+        $password = uniqid();
+        $user->setPasswordChiffrer($password);
+        $PasswordChiffrer = User::ChiffrerPassword($user->getPasswordChiffrer());
+        $Id = $user->getIdUser();
+        $Email = $user->getEmail();
+
+        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET `PasswordChiffrer`=:PASSWORDSHA256 WHERE `Email`=:EMAIL");
+        $req->bindParam(':PASSWORDSHA256', $PasswordChiffrer);
+        $req->bindParam(':EMAIL', $Email);
+        $req->execute();
+
+        return $password;
+    }
 }
