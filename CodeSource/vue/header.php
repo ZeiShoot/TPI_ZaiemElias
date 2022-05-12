@@ -42,10 +42,10 @@
                   } else {
                   ?>
                     <li>
-                      <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-pencil"></i> Poster</a>
+                      <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-cloud-upload"></i> Poster</a>
                     </li>
                     <li>
-                      <a href="index.php?uc=trier&action=ShowTriForm"><i class="glyphicon glyphicon-pencil"></i> Trier</a>
+                      <a href="index.php?uc=trier&action=ShowTriForm"><i class="glyphicon glyphicon-list-alt"></i> Trier</a>
                     </li>
                   <?php
                   }
@@ -64,11 +64,12 @@
                         <?php
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
                         ?>
-                          <i class="glyphicon glyphicon-star"></i>
+                          <i><b>Administrateur&nbsp;</b></i>
+                          <i class="glyphicon glyphicon-cog"></i>
                         <?php
                         } else {
                         ?>
-                          <i class="glyphicon glyphicon-user"></i>
+                          <i class="glyphicon glyphicon-cog"></i>
                         <?php
                         }
                         ?>
@@ -78,7 +79,7 @@
                         <?php
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
                         ?>
-                          <li><a href="index.php?uc=admin&action=ShowAdminPannel">Panneau Administratif</a></li>
+                          <li><a href="index.php?uc=admin&action=ShowAdminPannel">Administration</a></li>
                         <?php
                         } ?>
 

@@ -37,7 +37,7 @@
                     <th scope="col">Image</th>
                     <th scope="col">Date de publication</th>
                     <th scope="col">Date de modification</th>
-                    <th scope="col">Like&nbsp;/&nbsp;Dislike</th>
+                    <th scope="col">Nombre de likes&nbsp;/&nbsp;dislikes</th>
                     <th scope="col">Détails</th>
                 </tr>
             </thead>
@@ -50,23 +50,25 @@
                         <td><?= $production->getDescriptionProduction() ?></td>
                         <!--Si le nom de la catégorie est null, alors on affiche Non définie, sinon on affiche le nom de la catégorie.-->
                         <td><?= $production->getCategories_idCategorie() == null ? "Non définie" :  Categorie::GetCategorieNameById($production->getCategories_idCategorie()) ?></td>
-                        <td style="max-width: 80px;"><img style="width:100%;" src="./assets/medias/<?= $production->getFilename() ?>"></td>
+                        <td style="max-width: 40px;"><img style="width:100%;" src="./assets/medias/<?= $production->getFilename() ?>"></td>
                         <td><?= $production->getDate_soumission() ?></td>
                         <td><?= $production->getDate_modification() ?></td>
-                        <td>
-                            <?php
-                            $likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
-                            if ($likeUnlike == false) {                            ?>
-                                <a class="btn btn-success" href="index.php?uc=post&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
-                                <a class="btn btn-danger" href="index.php?uc=post&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
-                            <?php
-                            } else {
-                            ?>
-                                <a>Vous avez <?= $likeUnlike == 1 ? "like" : "dislike" ?> cette publication.</a>
-                            <?php
-                            }
-                            ?>
-                        </td>
+                        <?php
+                        if ($_SESSION['connectedUser']['isConnected'] == false) {
+                        ?>
+                            <td>
+                                <a>Connectez-vous pour pouvoir liker/disliker.</a>
+                            </td>
+                        <?php
+                        } else {
+                        ?>
+                            <td>
+                                <br>
+                                <?= "Like : " . LikeUnlike::GetCompteurLikeUnlike($production->getIdProduction(), 1) . "| Dislike : " . LikeUnlike::GetCompteurLikeUnlike($production->getIdProduction(), 2) ?>
+                            </td>
+                        <?php
+                        }
+                        ?>
                         <td><a class="btn btn-info" href="index.php?uc=post&action=showDetail&id=<?= $production->getIdProduction() ?>">Voir</a></td>
                     </tr>
                 <?php } ?>

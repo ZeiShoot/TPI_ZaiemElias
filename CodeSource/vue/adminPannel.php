@@ -48,8 +48,8 @@
                     <tr>
                         <td><?= $categorie->getIdCategorie() ?></td>
                         <td value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></td>
-                        <td><a class="btn btn-success" href="index.php?uc=admin&action=ShowEditCategorie&idCategorie=<?= $categorie->getIdCategorie() . '&nameCategorie=' . $categorie->GetCategorieNameById($categorie->getIdCategorie()) ?>">Modifier</a></td>
-                        <td><a class="btn btn-danger" href="index.php?uc=admin&action=deleteCategorie&idCategorie=<?= $categorie->getIdCategorie() ?>">Supprimer</a></td>
+                        <td>&nbsp;&nbsp;<a class="btn btn-success glyphicon glyphicon-edit" href="index.php?uc=admin&action=ShowEditCategorie&idCategorie=<?= $categorie->getIdCategorie() . '&nameCategorie=' . $categorie->GetCategorieNameById($categorie->getIdCategorie()) ?>"> </a></td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger glyphicon glyphicon-remove" href="index.php?uc=admin&action=deleteCategorie&idCategorie=<?= $categorie->getIdCategorie() ?>"> </a></td>
                     </tr>
                 <?php } ?>
             </tbody>

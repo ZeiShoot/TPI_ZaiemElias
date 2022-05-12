@@ -1,18 +1,14 @@
 <div class="container" style="display: block; margin-top: 3vh;">
 
     <h1>Mot De Passe</h1>
-    <form method='post' action=''>
-        <div class="form-group">
-            <label>Entrez votre mot de passe actuel : </label>
-            <input type="text" class="form-control">
-        </div>
+    <form method='post'action="index.php?uc=login&action=UpdateUserPassword">
         <div class="form-group">
             <label>Entrez votre nouveau mot de passe : </label>
-            <input type="text" class="form-control">
+            <input type="password" class="form-control" required>
         </div>
         <div class="form-group">
             <label>Confirmez le nouveau mot de passe : </label>
-            <input type="text" class="form-control">
+            <input type="password" class="form-control" required>
         </div>
         <div class="form-group">
 

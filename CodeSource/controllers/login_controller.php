@@ -51,7 +51,8 @@ switch ($action) {
         if ($email != "" && $password != "") {
             $user = new User();
             $user->setEmail($email)
-                ->setPasswordChiffrer($password);
+                ->setPasswordChiffrer($password)
+                ->GetUsernameByEmail($email);
 
             $result = User::ConnectUser($user);
             if ($result != false) {
@@ -59,6 +60,10 @@ switch ($action) {
                     'isConnected' => true,
                     'idUser' => $result->getIdUser(),
                     'email' => $result->getEmail(),
+                    'firstname' => $result->getFirstName(),
+                    'lastname' => $result->getLastName(),
+                    'username' => $result->getUsername(),
+                    'password' => $result->getPasswordChiffrer(),
                     'isAdmin' => $result->getIsAdmin()
                 ];
                 header('Location: index.php');
@@ -156,7 +161,28 @@ switch ($action) {
         include 'vue/changePassword.php';
         break;
 
-    case 'updateProfile':
+    case 'UpdateUserPassword':
+        header("Location:index.php?uc=login&action=ShowProfile");
+
+        break;
+
+    case 'UpdateUserInfos':
+        //Filtrage des données qui vont être modifiées
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        User::UpdateUserInfos($username, $firstname, $lastname, $email);
+
+        
+
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "Le profil de " . $username . " a bien été mis à jour"
+        ];
+        header('Location: index.php');
+
+
 
         break;
 
