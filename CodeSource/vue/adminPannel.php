@@ -21,6 +21,14 @@
         <div class="panel-body">
             <p>Vous pouvez ici gérer les catégories disponibles. Ajoutez/Modifiez/Supprimez une catégorie en 1 clique.</p>
         </div>
+
+    </div>
+    <div class="panel-heading">
+        <form method="POST" action="index.php?uc=admin&action=AddCategorie">
+            <h2>Ajouter une catégorie : </h2>
+            <input type="text" name="nomCategorie" placeholder="Entrez la catégorie" required>
+            <input type="submit" class="btn btn-info" value="Ajouter">
+        </form>
     </div>
     <div class="row">
         <table class="table">
@@ -40,7 +48,7 @@
                     <tr>
                         <td><?= $categorie->getIdCategorie() ?></td>
                         <td value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></td>
-                        <td><a class="btn btn-success" href="index.php?uc=admin&action=ShowEditCategorie">Modifier</a></td>
+                        <td><a class="btn btn-success" href="index.php?uc=admin&action=ShowEditCategorie&idCategorie=<?= $categorie->getIdCategorie() . '&nameCategorie=' . $categorie->GetCategorieNameById($categorie->getIdCategorie()) ?>">Modifier</a></td>
                         <td><a class="btn btn-danger" href="index.php?uc=admin&action=deleteCategorie&idCategorie=<?= $categorie->getIdCategorie() ?>">Supprimer</a></td>
                     </tr>
                 <?php } ?>

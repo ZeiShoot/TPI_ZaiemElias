@@ -250,4 +250,15 @@ class User
 
         return $password;
     }
+
+    public static function GetUsernameById($idUser)
+    {
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM utilisateurs WHERE idUser = :idUser");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $req->bindParam(":idUser", $idUser);
+        $req->execute();
+        $result = $req->fetch();
+
+        return $result->getUserName();
+    }
 }

@@ -1,6 +1,5 @@
 <div class="container">
     <?php
-
     if ($_SESSION['AlertMessage']['type'] != null) {
     ?>
         <div class="alert alert-<?= $_SESSION['AlertMessage']['type'] ?> alert-dismissible show" role="alert">
@@ -57,7 +56,7 @@
         </div>
         <br>
         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-            <a class="small" href="index.php?uc=login&action=ShowLoginForm">Déjà un compte ? Se connecter ici</a><br>
+            <a href="index.php?uc=login&action=ShowLoginForm"><b>Déjà un compte ? Se connecter ici</b></a><br><br>
             <button class="btn btn-info" name="submit" type="submit">S'inscrire</button>
         </div>
     </form>

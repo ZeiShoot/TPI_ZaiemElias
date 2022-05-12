@@ -27,8 +27,8 @@
         </div>
         <br>
         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-            <a class="small" href="index.php?uc=login&action=ShowRegisterForm">Pas de compte ? S'inscrire ici</a><br>
-            <a href="index.php?uc=login&action=ShowForgotPassword">Mot de passe oublié ? Cliquez ici</a><br>
+            <a href="index.php?uc=login&action=ShowRegisterForm"><b>Pas de compte ? S'inscrire ici</b></a><br>
+            <a href="index.php?uc=login&action=ShowForgotPassword"><i>Mot de passe oublié ?</i></a><br><br>
             <button class="btn btn-info" name="login" type="submit">Se connecter</button>
         </div>
     </form>

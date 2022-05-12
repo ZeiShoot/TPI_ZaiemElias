@@ -1,5 +1,6 @@
 <?php
-class LikeUnlike{
+class LikeUnlike
+{
     private $like;
     private $date;
     private $utilisateurs_idUser;
@@ -27,7 +28,7 @@ class LikeUnlike{
     }
 
 
-      /**
+    /**
      * Get the value of date
      */
     public function getDate()
@@ -49,7 +50,7 @@ class LikeUnlike{
     }
 
 
-      /**
+    /**
      * Get the value of utilisateurs_idUser
      */
     public function getUtilisateurs_idUser()
@@ -68,7 +69,7 @@ class LikeUnlike{
 
         return $this;
     }
-      /**
+    /**
      * Get the value of production_idProduction
      */
     public function getProduction_idProduction()
@@ -89,7 +90,8 @@ class LikeUnlike{
         return $this;
     }
 
-    public function LikePost(){
+    public function LikePost()
+    {
         $like = $this->getLike();
         $date = date("Y-m-d H:i:s");
         $idUser = $this->getUtilisateurs_idUser();
@@ -103,7 +105,21 @@ class LikeUnlike{
         $req->execute();
     }
 
-    public static function GetLikeUnlike($idUser, $idPost){
+    public function EditLikePost()
+    {
+        $like = $this->getLike();
+        $idUser = $this->getUtilisateurs_idUser();
+        $idProduction = $this->getProduction_idProduction();
+
+        $req = MonPdo::getInstance()->prepare("UPDATE like_unlike SET `like` = :likeProduction WHERE production_idProduction = :idProduction AND utilisateurs_idUser = :idUser");
+        $req->bindParam(":likeProduction", $like);
+        $req->bindParam(":idUser", $idUser);
+        $req->bindParam(":idProduction", $idProduction);
+        $req->execute();
+    }
+
+    public static function GetLikeUnlike($idUser, $idPost)
+    {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM like_unlike WHERE utilisateurs_idUser = :idUser AND production_idProduction = :idProduction;");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'LikeUnlike'); // methode de fetch
         $req->bindParam(":idUser", $idUser);
@@ -111,12 +127,22 @@ class LikeUnlike{
         $req->execute(); // executer la requette
         $result = $req->fetch();
 
-        if($result != false){
-        return $result->getLike();
-        }else{
+        if ($result != false) {
+            return $result->getLike();
+        } else {
             return false;
         }
     }
-}
 
-?>
+    // 1 = like, 2 = dislike
+    public static function GetCompteurLikeUnlike($idProduction, $likeUnlike)
+    {
+        $req = MonPdo::getInstance()->prepare("SELECT COUNT(idLikeUnlike) as 'compteur' FROM like_unlike WHERE production_idProduction = :idProduction AND like_unlike.like = :likeUnlike");
+        $req->bindParam(':idProduction', $idProduction);
+        $req->bindParam(':likeUnlike', $likeUnlike);
+        $req->execute();
+
+        $result = $req->Fetch();
+        return $result['compteur'];
+    }
+}

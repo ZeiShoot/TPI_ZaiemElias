@@ -9,7 +9,7 @@ class Production
     private $date_modification;
     private $filename;
     private $categories_idCategorie;
-    private $user_idUser;
+    private $utilisateurs_idUser;
     private $compteurCategorie;
 
 
@@ -151,7 +151,7 @@ class Production
      */
     public function getUser_idUser()
     {
-        return $this->user_idUser;
+        return $this->utilisateurs_idUser;
     }
 
     /**
@@ -159,9 +159,9 @@ class Production
      *
      * @return  self
      */
-    public function setUser_idUser($user_idUser)
+    public function setUser_idUser($utilisateurs_idUser)
     {
-        $this->user_idUser = $user_idUser;
+        $this->utilisateurs_idUser = $utilisateurs_idUser;
 
         return $this;
     }
@@ -305,22 +305,11 @@ class Production
         return $newImageName;
     }
 
-    // Ajoute un média dans la base de données
-    public static function AddMedia(Media $media)
+    public static function RemoveCategorie($idCategorie)
     {
-        $typeMedia = $media->getTypeMedia();
-        $nomFichierMedia = $media->getNomFichierMedia();
-        $creationDate = $media->getCreationDate();
-        $modificationDate = $media->getModificationDate();
-        $idPost = $media->getIdPost();
-        $req = MonPdo::getInstance()->prepare("INSERT INTO media(typeMedia, nomFichierMedia, creationDate, modificationDate, idPost) VALUES(:typeMedia, :nomFichierMedia, :creationDate, :modificationDate, :idPost);");
-        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Media'); // methode de fetch
-        $req->bindParam(":typeMedia", $typeMedia);
-        $req->bindParam(":nomFichierMedia", $nomFichierMedia);
-        $req->bindParam(":creationDate", $creationDate);
-        $req->bindParam(":modificationDate", $modificationDate);
-        $req->bindParam(":idPost", $idPost);
-        $req->execute(); // executer la requette
+        $req = MonPdo::getInstance()->prepare("UPDATE productions SET categories_idCategorie = NULL WHERE categories_idCategorie =:idCategorie");
+        $req->bindParam(":idCategorie", $idCategorie);
+        $req->execute();
 
     }
 }

@@ -48,7 +48,8 @@
                     <tr>
                         <td><?= $production->getTitreProduction() ?></td>
                         <td><?= $production->getDescriptionProduction() ?></td>
-                        <td><?= Categorie::GetCategorieNameById($production->getCategories_idCategorie()) ?></td>
+                        <!--Si le nom de la catégorie est null, alors on affiche Non définie, sinon on affiche le nom de la catégorie.-->
+                        <td><?= $production->getCategories_idCategorie() == null ? "Non définie" :  Categorie::GetCategorieNameById($production->getCategories_idCategorie()) ?></td>
                         <td style="max-width: 80px;"><img style="width:100%;" src="./assets/medias/<?= $production->getFilename() ?>"></td>
                         <td><?= $production->getDate_soumission() ?></td>
                         <td><?= $production->getDate_modification() ?></td>

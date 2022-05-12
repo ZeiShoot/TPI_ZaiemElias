@@ -11,28 +11,40 @@ switch ($action) {
     case 'ShowEditCategorie':
         //Affiche la page de modification de la catégorie sélectionnée.
         include 'vue/editCategorie.php';
+
         break;
 
     case 'deleteCategorie':
         $idCategorie = filter_input(INPUT_GET, 'idCategorie', FILTER_SANITIZE_NUMBER_INT);
         $nom = Categorie::GetCategorieNameById($idCategorie);
-
-
-
+        Production::RemoveCategorie($idCategorie);
         Categorie::DeleteCategorie($idCategorie);
         $_SESSION['AlertMessage'] = [
             'type' => "success",
-            'message' => "La Catégorie " . $idCategorie . " a bien été supprimé de la base de données."
+            'message' => "La Catégorie " . $nom . " a bien été supprimé de la base de données."
         ];
 
-        /* on cancel si un fichier n'a pas pu être supprimé
-            MonPdo::getInstance()->rollBack();
-            // retourne un message d'erreur
-            $_SESSION['AlertMessage'] = [
-                'type' => "danger",
-                'message' => "OOPS ! La Catégorie n'a pas pu être supprimé avec succès..."
-            ];*/
+        header('Location: index.php?uc=admin&action=ShowAdminPannel');
+        break;
 
+    case 'AddCategorie':
+        $CategorieName = filter_input(INPUT_POST, 'nomCategorie', FILTER_SANITIZE_STRING);
+        Categorie::AddNewCategorie($CategorieName);
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "La nouvelle catégorie " . $CategorieName . " a bien été ajouté dans la base de données."
+        ];
+        header('Location: index.php?uc=admin&action=ShowAdminPannel');
+        break;
+
+    case 'UpdateCategorie':
+        $idCategorie = filter_input(INPUT_GET, 'idCategorie', FILTER_SANITIZE_NUMBER_INT);
+        $nomCategorie = filter_input(INPUT_POST, 'nomCategorie', FILTER_SANITIZE_STRING);
+        Categorie::UpdateCategorie($idCategorie, $nomCategorie);
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "La catégorie " . $editCategorie . " a bien été modifié dans la base de données."
+        ];
         header('Location: index.php?uc=admin&action=ShowAdminPannel');
         break;
 

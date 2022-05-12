@@ -23,6 +23,11 @@
         </div>
     </div>
     <div class="row">
+        <form method="POST" action="index.php?uc=admin&action=UpdateCategorie&idCategorie=<?= $_GET['idCategorie'] ?>">
+            <h2>Modifier une catégorie : </h2>
+            <input type="text" name="nomCategorie" value="<?= $_GET['nameCategorie'] ?>" required>
+            <input type="submit" class="btn btn-info" value="Modifier">
+        </form>
         <a class="btn btn-default" href="index.php?uc=admin&action=ShowAdminPannel">Retour</a>
     </div>
 </div>

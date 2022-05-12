@@ -19,7 +19,7 @@
             <h4>Description : </h4>
             <input type="text" id="description" name="description" value="<?= $production->getDescriptionProduction() ?>" readonly><br>
             <h4>Catégorie : </h4>
-            <input type="text" id="categorie" name="categorie" value="<?= Categorie::GetCategorieNameById($production->getCategories_idCategorie()) ?>" readonly><br>
+            <input type="text" id="categorie" name="categorie" value="<?= $production->getCategories_idCategorie() == null ? "Non définie" :  Categorie::GetCategorieNameById($production->getCategories_idCategorie()) ?>" readonly><br>
             <h4>Nom du fichier d'originie : </h4>
             <input type="text" id="filename" name="filename" value="<?= $production->getFilename() ?>" readonly><br>
         </div>
@@ -29,10 +29,11 @@
             <h4>Date de modification : </h4>
             <input type="text" id="date_midification" name="date_midification" value="<?= $production->getDate_modification() ?>" readonly><br>
             <h4>Publiée par :</h4>
-            <input type="text" id="publier_par" name="publier_par" value="<?= $production->getUser_idUser() ?>" readonly><br>
+            <input type="text" id="publier_par" name="publier_par" value="<?= User::GetUsernameById($production->getUser_idUser()) ?>" readonly><br>
         </div>
         <div class="container">
-
+            <a class="btn btn-success" href="index.php?uc=post&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=1">Like</a>&nbsp;&nbsp;
+            <a class="btn btn-danger" href="index.php?uc=post&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=2">Dislike</a><br>
         </div>
 
     </div>

@@ -1,11 +1,12 @@
 <?php
-class Categorie{
+class Categorie
+{
     private $idCategorie;
     private $nom;
 
     /**
      * Get the value of idCategorie
-     */ 
+     */
     public function getIdCategorie()
     {
         return $this->idCategorie;
@@ -15,7 +16,7 @@ class Categorie{
      * Set the value of idCategorie
      *
      * @return  self
-     */ 
+     */
     public function setIdCategorie($idCategorie)
     {
         $this->idCategorie = $idCategorie;
@@ -25,7 +26,7 @@ class Categorie{
 
     /**
      * Get the value of nom
-     */ 
+     */
     public function getNom()
     {
         return $this->nom;
@@ -35,7 +36,7 @@ class Categorie{
      * Set the value of nom
      *
      * @return  self
-     */ 
+     */
     public function setNom($nom)
     {
         $this->nom = $nom;
@@ -44,7 +45,8 @@ class Categorie{
     }
 
 
-    public static function GetCategorieNameById($idCategorie){
+    public static function GetCategorieNameById($idCategorie)
+    {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM categories WHERE idCategorie = :idCategorie");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Categorie');
         $req->bindParam(":idCategorie", $idCategorie);
@@ -54,7 +56,8 @@ class Categorie{
         return $result->getNom();
     }
 
-    public static function GetAllCategories(){
+    public static function GetAllCategories()
+    {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM categories");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Categorie');
         $req->execute();
@@ -66,9 +69,25 @@ class Categorie{
     //Supprime la catégorie selon son Id
     public static function DeleteCategorie($idCategorie)
     {
-        $req = MonPdo::getInstance()->prepare("DELETE FROM categories WHERE idCategorie = :idCategorie AND nom = :nom");
+        $req = MonPdo::getInstance()->prepare("DELETE FROM categories WHERE idCategorie = :idCategorie");
         $req->bindParam(":idCategorie", $idCategorie);
         $req->execute();
     }
 
+
+    //Ajouter une catégorie depuis le pannel admin
+    public static function AddNewCategorie($CategorieName)
+    {
+        $req = MonPdo::getInstance()->prepare("INSERT INTO categories(nom) VALUES (:nom)");
+        $req->bindParam(":nom", $CategorieName);
+        $req->execute();
+    }
+
+    public static function UpdateCategorie($idCategorie, $nameCategorie)
+    {
+        $req = MonPdo::getInstance()->prepare("UPDATE categories SET nom =:nom WHERE idCategorie =:idCategorie");
+        $req->bindParam(":nom", $nameCategorie);
+        $req->bindParam(":idCategorie", $idCategorie);
+        $req->execute();
+    }
 }

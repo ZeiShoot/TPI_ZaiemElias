@@ -19,15 +19,15 @@
     <form method="POST" action="index.php?uc=post&action=validate" enctype="multipart/form-data">
         <!--Formulaire d'envoi du post-->
         <div class="form-group">
-            <label for="idTitreProduction">Titre de la production :</label>
+            <label for="idTitreProduction">Titre de la production : </label>
             <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction" required></textarea>
         </div>
         <div class="form-group">
-            <label for="idDescriptionProduction">Description de la production :</label>
+            <label for="idDescriptionProduction">Description de la production : </label>
             <textarea class="form-control" id="idDescriptionProduction" rows="4" name="descriptionProduction" required></textarea>
         </div>
         <div class="form-group">
-            <label for="select-categorie">Catégorie :</label>
+            <label for="select-categorie">Catégorie : </label>
 
             <select name="categorieProduction" id="select-categorie" required>
                 <?php
@@ -41,8 +41,8 @@
         </div>
 
         <div class="form-group">
-            <label for="idFile">Image</label>
-            <input type="file" class="form-control-file" id="idFile" accept="image/jpg, image/png" name="filesPost[]" required>
+            <label for="idFile">Image : </label>
+            <input type="file" class="form-control-file" id="idFile" accept=".jpg,.png" name="filesPost[]" required>
         </div>
         <input class="btn btn-success" type="submit" value="Publier">
     </form>

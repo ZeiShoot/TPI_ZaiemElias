@@ -1,6 +1,6 @@
 <div class="container" style="display: block; margin-top: 3vh;">
     <h1>Modification Du Profil</h1>
-    <form method='post' action=''>
+    <form method="POST" action="index.php?uc=login&action=updateProfile">
         <div class="form-group">
             <label>Nom d'utilisateur : </label>
             <input type="text" class="form-control">
