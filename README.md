@@ -169,7 +169,46 @@
 	- Post d'une production avancé mais un bug est survenu.
 	
 ## <u>7ème jour - 11/05/2022</u>
+
+### Matin:
+
+- 7:30 : Aujourd'hui je vais commencer la page d'administration pour les catégories.
+
+- 11:40 : Je n'ai pas pu terminé le CRUD des catégorie, je continuerai demain.
+
+### Après-midi:
+
+- 12:40 : Je commence la page de modification du profile de l'utilisateur.
+
+
+- 16:45 : Fin de la journée, j'ai bien avancé, j'ai presque terminé la page de modification du profil utilisateur.
+
+  - Bilan:
+    - Modification profil terminée à 80%
+	- CRUD des catégories presque terminé
+	- Correction de bug et de design
+	
 ## <u>8ème jour - 12/05/2022</u>
+
+### Matin:
+
+- 7:30 : Je vais commencer ma journée par finir le CRUD des catégories (administrateur seulement)
+
+- 11:40 : J'ai fini la page d'administration des catégories, je sui content :)
+
+### Après-midi:
+
+- 12:40 : Je vais faire travailler sur la page de modification du profil, je dois la terminer aujourd'hui !
+
+- 14:35 : J'ai terminé la page profil, je fais le système de compteur de like/dislike comme ça c'est fait
+
+- 16:45 : Super journée, j'ai bien avancé. Enfin le week-end. Lundi je vais avancer la doc car j'ai un petit peu de retard...
+
+  - Bilan:
+    - Page modification de profil terminée
+	- Page CRUD des catégories terminée
+	- Journal de bords complété et planning mis à jour.
+	
 ## <u>9ème jour - 16/05/2022</u>
 ## <u>10ème jour - 17/05/2022</u>
 ## <u>11ème jour - 18/05/2022</u>
