@@ -4,11 +4,11 @@
     <form method='post'action="index.php?uc=login&action=UpdateUserPassword">
         <div class="form-group">
             <label>Entrez votre nouveau mot de passe : </label>
-            <input type="password" class="form-control" required>
+            <input type="password" class="form-control" name ="newPassword" required>
         </div>
         <div class="form-group">
             <label>Confirmez le nouveau mot de passe : </label>
-            <input type="password" class="form-control" required>
+            <input type="password" class="form-control" name="confirmNewPassword" required>
         </div>
         <div class="form-group">
 

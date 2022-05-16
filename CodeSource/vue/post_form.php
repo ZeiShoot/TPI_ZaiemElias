@@ -16,7 +16,7 @@
     ?>
     <!--Visuel du formulaire de post-->
     <h1>Publiez une production sur Foto'Gal !</h1>
-    <form method="POST" action="index.php?uc=post&action=validate" enctype="multipart/form-data">
+    <form method="POST" action="index.php?uc=production&action=validate" enctype="multipart/form-data">
         <!--Formulaire d'envoi du post-->
         <div class="form-group">
             <label for="idTitreProduction">Titre de la production : </label>

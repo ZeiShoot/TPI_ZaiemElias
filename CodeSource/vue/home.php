@@ -65,8 +65,8 @@
 								<?php
 								$likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
 								if ($likeUnlike == false) {							?>
-									<a class="btn btn-success" href="index.php?uc=post&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
-									<a class="btn btn-danger" href="index.php?uc=post&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
+									<a class="btn btn-success" href="index.php?uc=production&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
+									<a class="btn btn-danger" href="index.php?uc=production&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
 								<?php
 								} else {
 								?>
@@ -81,7 +81,7 @@
 						<?php
 						}
 						?>
-						<td><a class="btn btn-info" href="index.php?uc=post&action=showDetail&id=<?= $production->getIdProduction() ?>">Voir</a></td>
+						<td><a class="btn btn-info" href="index.php?uc=production&action=showDetail&id=<?= $production->getIdProduction() ?>">Voir</a></td>
 					</tr>
 				<?php } ?>
 			</tbody>

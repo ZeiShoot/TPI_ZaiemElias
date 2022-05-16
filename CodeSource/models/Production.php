@@ -217,13 +217,6 @@ class Production
         return MonPdo::getInstance()->lastInsertId();
     }
 
-    //Supprime la production selon son Id
-    public static function DeleteProduction($idProduction)
-    {
-        $req = MonPdo::getInstance()->prepare("DELETE FROM productions WHERE idProduction = :idProduction");
-        $req->bindParam(":idProduction", $idProduction);
-        $req->execute();
-    }
 
     //Récup toutes les productions par date de publication
     public static function getAllProductionByDate()
@@ -334,5 +327,23 @@ class Production
         $req->bindParam(":description", $description);
         $req->bindParam(":date_modification", $date_modification);
         $req->execute();
+    }
+
+    // supprime la production et les likes selon son id
+    public static function DeleteProduction($idProduction)
+    {
+        $req = MonPdo::getInstance()->prepare("DELETE FROM like_unlike WHERE production_idProduction = :idProduction; DELETE FROM productions WHERE idProduction = :idProduction");
+        $req->bindParam(":idProduction", $idProduction);
+        $req->execute();
+    }
+
+    public static function GetMediaNameByProductionId($idProduction){
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE idProduction = :idProduction;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production');
+        $req->bindParam(":idProduction", $idProduction);
+        $req->execute();
+
+        $result = $req->fetch();
+        return $result->getFilename();
     }
 }

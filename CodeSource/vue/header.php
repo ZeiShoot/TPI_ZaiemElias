@@ -42,10 +42,13 @@
                   } else {
                   ?>
                     <li>
-                      <a href="index.php?uc=post&action=show"><i class="glyphicon glyphicon-cloud-upload"></i> Poster</a>
+                      <a href="index.php?uc=production&action=show"><i class="glyphicon glyphicon-cloud-upload"></i> Poster</a>
                     </li>
                     <li>
                       <a href="index.php?uc=trier&action=ShowTriForm"><i class="glyphicon glyphicon-list-alt"></i> Trier</a>
+                    </li>
+                    <li>
+                      <a href="index.php?uc=login&action=ShowPageFAQ"><i class="glyphicon glyphicon-question-sign"></i> Aide</a>
                     </li>
                   <?php
                   }
@@ -76,7 +79,7 @@
                       </a>
                       <ul class="dropdown-menu">
                         <li><a href="index.php?uc=login&action=ShowProfile">Mon Profil</a></li>
-                        <li><a href="index.php?uc=login&action=ShowProductions">Mes Productions</a></li>
+                        <li><a href="index.php?uc=production&action=ShowMyProductions">Mes Productions</a></li>
                         <?php
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
                         ?>
@@ -93,6 +96,5 @@
                 </ul>
               </nav>
             </div>
-
           </div>
           <!-- /top nav -->

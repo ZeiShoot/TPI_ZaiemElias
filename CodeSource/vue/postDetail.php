@@ -3,8 +3,8 @@
     <?php
     $likeUnlike = LikeUnlike::GetLikeUnlike($_SESSION['connectedUser']['idUser'], $production->getIdProduction());
     if ($likeUnlike == false) { ?>
-        <a class="btn btn-success" href="index.php?uc=post&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
-        <a class="btn btn-danger" href="index.php?uc=post&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
+        <a class="btn btn-success" href="index.php?uc=production&action=like&id= <?= $production->getIdProduction() ?>">Like</a>&nbsp;&nbsp;
+        <a class="btn btn-danger" href="index.php?uc=production&action=dislike&id= <?= $production->getIdProduction() ?>">Dislike</a><br>
     <?php
     } else {
     ?>
@@ -32,8 +32,8 @@
             <input type="text" id="publier_par" name="publier_par" value="<?= User::GetUsernameById($production->getUser_idUser()) ?>" readonly><br>
         </div>
         <div class="container">
-            <a class="btn btn-success" href="index.php?uc=post&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=1">Like</a>&nbsp;&nbsp;
-            <a class="btn btn-danger" href="index.php?uc=post&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=2">Dislike</a><br>
+            <a class="btn btn-success" href="index.php?uc=production&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=1">Like</a>&nbsp;&nbsp;
+            <a class="btn btn-danger" href="index.php?uc=production&action=editLikePost&idProduction= <?= $production->getIdProduction() ?>&like=2">Dislike</a><br>
         </div>
 
     </div>

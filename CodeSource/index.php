@@ -43,8 +43,8 @@ switch ($uc) {
     case 'login':
         include 'controllers/login_controller.php';
         break;
-    case 'post':
-        include 'controllers/post_controller.php';
+    case 'production':
+        include 'controllers/production_controller.php';
         break;
     case 'trier':
         include 'controllers/tri_controller.php';

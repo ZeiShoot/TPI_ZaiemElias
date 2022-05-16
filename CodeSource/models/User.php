@@ -303,11 +303,20 @@ class User
         }
     }
 
-    /*Fonction qui met à jour le mot de passe
-    public static function UpdateUserPassword($P, $Email)
+    //Fonction qui permet de générer un nouveau mot de passe en cas d'oubli.
+    public static function UpdateUserPassword($newPassword)
     {
-        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET passwordchiffrer=:PASSWORDCHIFFRER WHERE email =:EMAIL");
-        $req->bindParam(":PASSWORDCHIFFRER", $NewPasswordChiffrer);
-        $req->bindParam(":EMAIL", $Email);
-    }*/
+        //Récupère le user par email
+        $email = $_SESSION['connectedUser']['email'];
+
+        //Chiffre (en SHA256) le nouveau mot de passe avant de le mettre dans la base de données
+        $PasswordChiffrer = User::ChiffrerPassword($newPassword);
+
+        //Insertion dans la base du nouveau mdp
+        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET `PasswordChiffrer`=:PASSWORDSHA256 WHERE `Email`=:EMAIL");
+        $req->bindParam(':PASSWORDSHA256', $PasswordChiffrer);
+        $req->bindParam(':EMAIL', $email);
+        $req->execute();
+
+    }
 }

@@ -19,7 +19,7 @@
                 <h4>Changer d'image : </h4>
                 <input type="file" class="form-control-file" id="idFile" accept=".jpg,.png" name="filesPost[]" required><br>
                 <input type="submit" class="btn btn-success pull-left" value="Mettre à jour la production"><br><br>
-                <a href="index.php" class="btn btn-default pull-left"><i>Annuler</i></a>
+                <a href="index.php?uc=production&action=ShowMyProductions" class="btn btn-default pull-left"><i>Annuler</i></a>
             </form>
         </div>
     </div>

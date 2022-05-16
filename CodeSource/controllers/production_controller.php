@@ -124,21 +124,20 @@ switch ($action) {
         break;
 
 
-        case 'editLikePost':
-            $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
-            $numberLike = filter_input(INPUT_GET, 'like', FILTER_SANITIZE_NUMBER_INT);
+    case 'editLikePost':
+        $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
+        $numberLike = filter_input(INPUT_GET, 'like', FILTER_SANITIZE_NUMBER_INT);
 
 
-            $like = new LikeUnlike();
-            $like->setUtilisateurs_idUser($_SESSION['connectedUser']['idUser'])
+        $like = new LikeUnlike();
+        $like->setUtilisateurs_idUser($_SESSION['connectedUser']['idUser'])
             ->setProduction_idProduction($idProduction)
             ->setLike($numberLike);
-            $like->EditLikePost();
-            
-            header('Location: index.php');
-            break;
+        $like->EditLikePost();
 
-        // supprime un post
+        header('Location: index.php');
+        break;
+
     case 'delete':
         // récupération du post avec un filter input
         $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
@@ -156,10 +155,43 @@ switch ($action) {
             //Message de réussite affiché.
             'content' => "La production à été supprimée avec succès"
         ];
-        header('Location:index.php');
+        header('Location: index.php?uc=production&action=ShowMyProductions');
         break;
 
+    case 'ShowMyProductions':
+        //Affiche la page des productions publiées par l'utilisateur
+        include 'vue/myProductions.php';
+        break;
 
+        //Suppression d'une production et de son média (image stockée en locale)
+    case 'deleteProduction':
+        $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
+
+        //Va chercher le média dans les assets et le supprime puis redirige vers la page Myproduction
+        if (unlink("./assets/medias/" . Production::GetMediaNameByProductionId($idProduction))) {
+            Production::DeleteProduction($idProduction);
+            header('Location: index.php?uc=production&action=ShowMyProductions');
+        }
+        break;
+
+    case 'ShowEditProductionPage':
+        //Affiche la page des productions publiées par l'utilisateur
+        include 'vue/editProduction.php';
+        break;
+
+    case 'editProduction':
+        $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
+        $numberLike = filter_input(INPUT_GET, 'like', FILTER_SANITIZE_NUMBER_INT);
+
+
+        $like = new LikeUnlike();
+        $like->setUtilisateurs_idUser($_SESSION['connectedUser']['idUser'])
+            ->setProduction_idProduction($idProduction)
+            ->setLike($numberLike);
+        $like->EditLikePost();
+
+        header('Location: index.php');
+        break;
 
     default:
         include 'vue/erreur404.php'; // affiche la page d'erreur 404 si le lien n'est pas valide

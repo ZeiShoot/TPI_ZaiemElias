@@ -156,7 +156,25 @@ switch ($action) {
         break;
 
     case 'UpdateUserPassword':
+        //Filtrage des données qui vont être modifiées
+        $newPassword = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_STRING);
+        $confirmNewPassword = filter_input(INPUT_POST, 'confirmNewPassword', FILTER_SANITIZE_STRING);
+        if ($newPassword == $confirmNewPassword) {
+            User::UpdateUserPassword($newPassword);
+
+            $_SESSION['AlertMessage'] = [
+                'type' => "success",
+                'message' => "Le mot de passe de " . $username . " a bien été mis à jour"
+            ];
+        } else {
+            $_SESSION['AlertMessage'] = [
+                'type' => "success",
+                'message' => "Les mot de passe ne correspondent pas !"
+            ];
+        }
+
         header("Location:index.php?uc=login&action=ShowProfile");
+        exit;
 
         break;
 
@@ -189,11 +207,6 @@ switch ($action) {
         include 'vue/mdpOublier.php';
         break;
 
-    case 'ShowProductions':
-        //Affiche la page des productions publiées par l'utilisateur
-        include 'vue/MyProductions.php';
-        break;
-
     case 'UpdateProductionInfos':
         //Filtrage des données qui vont être modifiées
         $titre = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
@@ -208,6 +221,11 @@ switch ($action) {
         ];
         header('Location: index.php?uc=login&action=ShowProductions');
         break;
+
+        case 'ShowPageFAQ':
+            //Affiche la page de FAQ (c'est le manuel utilisateur, il est inclu dans le site web)
+            include 'vue/pageFAQ.php';
+            break;
 
     default:
         //Page d'erreur

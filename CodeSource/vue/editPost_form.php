@@ -15,7 +15,7 @@
     <h1>Modification d'une production</h1>
 
     <!-- Formulaire de modification d'une production -->
-    <form method="POST" action="index.php?uc=post&action=validateEdit" enctype="multipart/form-data">
+    <form method="POST" action="index.php?uc=production&action=validateEdit" enctype="multipart/form-data">
     <div class="form-group">
             <label for="idTitreProduction">Titre : </label>
             <textarea class="form-control" id="idTitreProduction" rows="1" name="titreProduction"><?= $post->getTitreProduction() ?></textarea>
@@ -35,7 +35,7 @@
             ?>
                         <div style="border: 1px solid black; width: 33.3%">
                             <img width="100%" src="./assets/medias/<?= $media->getNomFichierMedia() ?>" alt="image">
-                            <a class="btn btn-danger" href="index.php?uc=post&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
+                            <a class="btn btn-danger" href="index.php?uc=production&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
                         </div> 
                     <?php
                         break;
@@ -45,7 +45,7 @@
                         <video controls autoplay loop muted width="100%">
                             <source src="./assets/medias/<?= $media->getNomFichierMedia() ?>" type="<?= $media->getTypeMedia() ?>">
                         </video>
-                        <a class="btn btn-danger" href="index.php?uc=post&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
+                        <a class="btn btn-danger" href="index.php?uc=production&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
                     </div>
                     <?php
                         break;
@@ -53,7 +53,7 @@
                     ?>
                         <div style="border: 1px solid black; width: 33.3%">
                             <audio controls src="./assets/medias/<?= $media->getNomFichierMedia() ?>" style="width: 50%; margin-left: 20%"></audio>
-                            <a class="btn btn-danger" href="index.php?uc=post&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
+                            <a class="btn btn-danger" href="index.php?uc=production&action=deleteMedia&idMedia=<?= $media->getIdMedia() ?>">X</a>
                         </div>
             <?php
                         break;
