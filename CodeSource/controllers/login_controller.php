@@ -26,14 +26,12 @@ switch ($action) {
                 'username' => ""
             ];
         }
-
         if ($_SESSION['connectedUser']['isConnected'] == false) {
             //Affiche le formulaire de post
             include 'vue/register_form.php';
         } else {
             header('Location: index.php');
         }
-
         break;
 
     case 'disconnect':
@@ -83,9 +81,7 @@ switch ($action) {
             header("Location : index.php?uc=login&action=ShowLoginForm");
             exit();
         }
-
         break;
-
 
     case 'validateRegister':
 
@@ -150,8 +146,6 @@ switch ($action) {
         }
         break;
 
-
-
     case 'ShowProfile':
         include 'vue/profile.php';
 
@@ -174,15 +168,11 @@ switch ($action) {
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
         User::UpdateUserInfos($username, $firstname, $lastname, $email);
 
-        
-
         $_SESSION['AlertMessage'] = [
             'type' => "success",
             'message' => "Le profil de " . $username . " a bien été mis à jour"
         ];
         header('Location: index.php');
-
-
 
         break;
 
@@ -191,13 +181,32 @@ switch ($action) {
         $user = new User();
         $user->setEmail($_POST['EmailRecovery']);
         $password = User::RecoverPassword($user);
-
         include 'vue/generationNouveauMdp.php';
         break;
 
     case 'ShowForgotPassword':
         //Affiche la page de récupération de mot de passe
         include 'vue/mdpOublier.php';
+        break;
+
+    case 'ShowProductions':
+        //Affiche la page des productions publiées par l'utilisateur
+        include 'vue/MyProductions.php';
+        break;
+
+    case 'UpdateProductionInfos':
+        //Filtrage des données qui vont être modifiées
+        $titre = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $description = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $categorie = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $image = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        Production::UpdateProductionInfos($titre, $description, $categorie, $image);
+
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "La production " . $titre . " a bien été mise à jour"
+        ];
+        header('Location: index.php?uc=login&action=ShowProductions');
         break;
 
     default:

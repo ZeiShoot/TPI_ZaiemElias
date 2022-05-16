@@ -149,22 +149,6 @@ switch ($action) {
         // debut de la transaction
         MonPdo::getInstance()->beginTransaction();
 
-        // suppression de tous les fichiers
-        /*
-        foreach ($medias as $media) {
-            if (unlink("./assets/medias/" . $media->getNomFichierMedia())) {
-                Media::DeleteMedia($media->getIdMedia());
-            } else {
-                // on cancel si un fichier n'a pas pu être supprimé
-                MonPdo::getInstance()->rollBack();
-                // retourne un message d'erreur
-                $_SESSION['message'] = [
-                    'type' => "danger",
-                    'content' => "OOPS ! Une erreur lors de la suppression est survenue..."
-                ];
-                header('Location:index.php');
-            }
-        }*/
         Production::DeleteProduction($idProduction);
         MonPdo::getInstance()->commit();
         $_SESSION['message'] = [

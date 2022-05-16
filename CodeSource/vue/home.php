@@ -20,7 +20,6 @@
 		</div>
 		<div class="panel-body">
 			<p>Affichage des 10 dernières productions par ordre chronologique.</p>
-			<p>Nombre de production(s) actuel : <i id="idNumberOfPosts"></i></p>
 		</div>
 	</div>
 </div>

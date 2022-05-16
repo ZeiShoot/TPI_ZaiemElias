@@ -76,6 +76,7 @@
                       </a>
                       <ul class="dropdown-menu">
                         <li><a href="index.php?uc=login&action=ShowProfile">Mon Profil</a></li>
+                        <li><a href="index.php?uc=login&action=ShowProductions">Mes Productions</a></li>
                         <?php
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
                         ?>

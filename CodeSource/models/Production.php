@@ -225,22 +225,6 @@ class Production
         $req->execute();
     }
 
-    //Met à jour une production
-    public static function UpdateProduction(Production $production)
-    {
-        $titre = $production->getTitreProduction();
-        $description = $production->getDescriptionProduction();
-        $date_modification = $production->getDate_modification();
-        $req = MonPdo::getInstance()->prepare("UPDATE productions SET titre = :titre, description = :description, date_modification = :date_modification");
-        $req->bindParam(":titre", $titre);
-        $req->bindParam(":description", $description);
-        $req->bindParam(":date_modification", $date_modification);
-        $req->execute();
-    }
-
-
-
-
     //Récup toutes les productions par date de publication
     public static function getAllProductionByDate()
     {
@@ -310,6 +294,45 @@ class Production
         $req = MonPdo::getInstance()->prepare("UPDATE productions SET categories_idCategorie = NULL WHERE categories_idCategorie =:idCategorie");
         $req->bindParam(":idCategorie", $idCategorie);
         $req->execute();
+    }
 
+    //Fonction qui met à jour les informations d'une production
+    public static function UpdateProductionInfos($UserName, $FirstName, $LastName, $Email)
+    {
+        //Récupère en session le idUser et si il est admin ou non pour ne pas ecrasé ce champs dans la base de données
+        $isAdmin = $_SESSION['connectedUser']['isAdmin'];
+        $idUser = $_SESSION['connectedUser']['idUser'];
+
+        //Requête sql pour update l'utilisateur
+        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET username =:USERNAME, firstname =:FIRSTNAME, lastname =:LASTNAME, email=:EMAIL WHERE email =:EMAIL");
+        $req->bindParam(":USERNAME", $UserName);
+        $req->bindParam(":FIRSTNAME", $FirstName);
+        $req->bindParam(":LASTNAME", $LastName);
+        $req->bindParam(":EMAIL", $Email);
+
+        if ($req->execute()) {
+            $_SESSION['connectedUser'] = [
+                'isConnected' => true,
+                'isAdmin' => $isAdmin,
+                'idUser' => $idUser,
+                'email' => $Email,
+                'firstname' => $FirstName,
+                'lastname' => $LastName,
+                'username' => $UserName,
+            ];
+        }
+    }
+
+    //Met à jour une production
+    public static function UpdateProduction(Production $production)
+    {
+        $titre = $production->getTitreProduction();
+        $description = $production->getDescriptionProduction();
+        $date_modification = $production->getDate_modification();
+        $req = MonPdo::getInstance()->prepare("UPDATE productions SET titre = :titre, description = :description, date_modification = :date_modification");
+        $req->bindParam(":titre", $titre);
+        $req->bindParam(":description", $description);
+        $req->bindParam(":date_modification", $date_modification);
+        $req->execute();
     }
 }
