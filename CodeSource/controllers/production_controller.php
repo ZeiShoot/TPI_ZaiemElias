@@ -184,15 +184,17 @@ switch ($action) {
         //Filtrage des données qui vont être modifiées
         $titre = filter_input(INPUT_POST, 'titre', FILTER_SANITIZE_STRING);
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
-        $categorie = filter_input(INPUT_POST, 'categorie', FILTER_SANITIZE_EMAIL);
-        Production::UpdateProductionInfos($titre, $description, $categorie, $image, $date_modification);
+        $categorie = filter_input(INPUT_POST, 'categorieProduction', FILTER_SANITIZE_EMAIL);
+        //$idProduction->getIdProduction();
+        $date_modification = date("Y-m-d H:i:s");
+        Production::UpdateProductionInfos($titre, $description, $categorie, $date_modification, $idProduction);
         //Message de réussie
         $_SESSION['AlertMessage'] = [
             'type' => "success",
             'message' => "La production " . $titre . " a bien été modifié dans la base de données."
         ];
         //Redirection de l'utilisateur
-        header('Location: index.php?uc=login&action=ShowProductions');
+        header('Location: index.php?uc=production&action=ShowMyProductions');
 
         break;
 

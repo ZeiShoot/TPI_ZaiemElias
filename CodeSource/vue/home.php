@@ -43,7 +43,7 @@
 			<tbody>
 				<?php
 				//Affiche chaque production et affiche les données dans un tableau
-				foreach (Production::getAllProductions() as $production) {
+				foreach (Production::getAllProductionAccueil() as $production) {
 				?>
 					<tr>
 						<td style="padding-left: 30px;"><?= $production->getTitreProduction() ?></td>

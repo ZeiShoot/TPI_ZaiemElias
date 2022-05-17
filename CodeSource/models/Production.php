@@ -234,13 +234,25 @@ class Production
     {
 
         if($idCategorie == 0){
-            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions ORDER BY :ORDERPROD DESC LIMIT 10;");
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions ORDER BY :ORDERPROD DESC;");
         }
         else{
-            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE categories_idCategorie = :IDCATEGORIE ORDER BY :ORDERPROD DESC LIMIT 10;");
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE categories_idCategorie = :IDCATEGORIE ORDER BY :ORDERPROD DESC;");
             $req->bindParam(':IDCATEGORIE', $idCategorie);
         }
         $req->bindParam(':ORDERPROD', $order);
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production'); // methode de fetch
+        $req->execute(); // executer la requette
+
+        $lesResultats = $req->fetchAll();
+        return $lesResultats;
+    }
+
+    //Récup toutes les productions
+    public static function getAllProductionAccueil()
+    {
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions ORDER BY date_soumission DESC LIMIT 10;");
+
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production'); // methode de fetch
         $req->execute(); // executer la requette
 
@@ -310,19 +322,18 @@ class Production
     }
 
     //Fonction qui met à jour les informations d'une production
-    public static function UpdateProductionInfos($titre, $description, $categorie, $image, $date_modification)
+    public static function UpdateProductionInfos($titre, $description, $categorie, $date_modification, $idProduction)
     {
-        //Récupère en session le idUser et si il est admin ou non pour ne pas ecrasé ce champs dans la base de données
-        $isAdmin = $_SESSION['connectedUser']['isAdmin'];
-        $idUser = $_SESSION['connectedUser']['idUser'];
-
+       
         //Requête sql pour update l'utilisateur
-        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET username =:USERNAME, firstname =:FIRSTNAME, lastname =:LASTNAME, email=:EMAIL WHERE email =:EMAIL");
-        $req->bindParam(":TITRE", $titre);
-        $req->bindParam(":DESCRIPTION", $description);
-        $req->bindParam(":CATEGORIE", $categorie);
-        $req->bindParam(":IMAGE", $image);
-        $req->bindParam(":DATEMODIFICATION", $date_modification);
+        $req = MonPdo::getInstance()->prepare("UPDATE productions SET idProduction = :idProduction, titre = :titre, description = :descriptionModif, categories_idCategorie = :idCategorie, date_modification = :dateModif WHERE idProduction = :idProduction");
+        $req->bindParam(":titre", $titre);
+        $req->bindParam(":descriptionModif", $description);
+        $req->bindParam(":idCategorie", $categorie);
+        $req->bindParam(":dateModif", $date_modification);
+        $req->bindParam(":idProduction", $idProduction);
+        
+        $req->execute();
 
         
     }
