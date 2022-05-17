@@ -230,10 +230,30 @@ class Production
     }
 
     //Récup toutes les productions
-    public static function getAllProductions()
+    public static function getAllProductions($idCategorie = 0, $order = "date_soumission")
     {
-        $req = MonPdo::getInstance()->prepare("SELECT * FROM productions ORDER BY date_soumission DESC;");
+
+        if($idCategorie == 0){
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions ORDER BY :ORDERPROD DESC LIMIT 10;");
+        }
+        else{
+            $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE categories_idCategorie = :IDCATEGORIE ORDER BY :ORDERPROD DESC LIMIT 10;");
+            $req->bindParam(':IDCATEGORIE', $idCategorie);
+        }
+        $req->bindParam(':ORDERPROD', $order);
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production'); // methode de fetch
+        $req->execute(); // executer la requette
+
+        $lesResultats = $req->fetchAll();
+        return $lesResultats;
+    }
+
+    //Récup toutes les productions
+    public static function getAllUserProductions($idUser)
+    {
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE utilisateurs_idUser = :idUser ORDER BY date_soumission DESC;");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production'); // methode de fetch
+        $req->bindParam(':idUser', $idUser);
         $req->execute(); // executer la requette
 
         $lesResultats = $req->fetchAll();
@@ -290,7 +310,7 @@ class Production
     }
 
     //Fonction qui met à jour les informations d'une production
-    public static function UpdateProductionInfos($UserName, $FirstName, $LastName, $Email)
+    public static function UpdateProductionInfos($titre, $description, $categorie, $image, $date_modification)
     {
         //Récupère en session le idUser et si il est admin ou non pour ne pas ecrasé ce champs dans la base de données
         $isAdmin = $_SESSION['connectedUser']['isAdmin'];
@@ -298,36 +318,15 @@ class Production
 
         //Requête sql pour update l'utilisateur
         $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET username =:USERNAME, firstname =:FIRSTNAME, lastname =:LASTNAME, email=:EMAIL WHERE email =:EMAIL");
-        $req->bindParam(":USERNAME", $UserName);
-        $req->bindParam(":FIRSTNAME", $FirstName);
-        $req->bindParam(":LASTNAME", $LastName);
-        $req->bindParam(":EMAIL", $Email);
+        $req->bindParam(":TITRE", $titre);
+        $req->bindParam(":DESCRIPTION", $description);
+        $req->bindParam(":CATEGORIE", $categorie);
+        $req->bindParam(":IMAGE", $image);
+        $req->bindParam(":DATEMODIFICATION", $date_modification);
 
-        if ($req->execute()) {
-            $_SESSION['connectedUser'] = [
-                'isConnected' => true,
-                'isAdmin' => $isAdmin,
-                'idUser' => $idUser,
-                'email' => $Email,
-                'firstname' => $FirstName,
-                'lastname' => $LastName,
-                'username' => $UserName,
-            ];
-        }
+        
     }
 
-    //Met à jour une production
-    public static function UpdateProduction(Production $production)
-    {
-        $titre = $production->getTitreProduction();
-        $description = $production->getDescriptionProduction();
-        $date_modification = $production->getDate_modification();
-        $req = MonPdo::getInstance()->prepare("UPDATE productions SET titre = :titre, description = :description, date_modification = :date_modification");
-        $req->bindParam(":titre", $titre);
-        $req->bindParam(":description", $description);
-        $req->bindParam(":date_modification", $date_modification);
-        $req->execute();
-    }
 
     // supprime la production et les likes selon son id
     public static function DeleteProduction($idProduction)
@@ -335,9 +334,11 @@ class Production
         $req = MonPdo::getInstance()->prepare("DELETE FROM like_unlike WHERE production_idProduction = :idProduction; DELETE FROM productions WHERE idProduction = :idProduction");
         $req->bindParam(":idProduction", $idProduction);
         $req->execute();
+        
     }
 
-    public static function GetMediaNameByProductionId($idProduction){
+    public static function GetMediaNameByProductionId($idProduction)
+    {
         $req = MonPdo::getInstance()->prepare("SELECT * FROM productions WHERE idProduction = :idProduction;");
         $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Production');
         $req->bindParam(":idProduction", $idProduction);

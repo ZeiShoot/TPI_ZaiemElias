@@ -90,6 +90,7 @@ class LikeUnlike
         return $this;
     }
 
+    //Fonction pour liker une production
     public function LikePost()
     {
         $like = $this->getLike();
@@ -97,6 +98,7 @@ class LikeUnlike
         $idUser = $this->getUtilisateurs_idUser();
         $idProduction = $this->getProduction_idProduction();
 
+        //Insert dans la base de données like_unlike
         $req = MonPdo::getInstance()->prepare("INSERT INTO `like_unlike` (`like`, `date`, `utilisateurs_idUser`, `production_idProduction`) VALUES(:like, :date, :idUser, :idProduction)");
         $req->bindParam(":like", $like);
         $req->bindParam(":date", $date);
@@ -105,6 +107,7 @@ class LikeUnlike
         $req->execute();
     }
 
+    //Fonction de modification de post
     public function EditLikePost()
     {
         $like = $this->getLike();
@@ -141,6 +144,11 @@ class LikeUnlike
         $req->bindParam(':idProduction', $idProduction);
         $req->bindParam(':likeUnlike', $likeUnlike);
         $req->execute();
+
+        /*SELECT productions.*, like_unlike.*
+        FROM productions
+        INNER JOIN like_unlike ON productons.idProduction = like_unlike.production_idProduction
+        WHERE like_unlike.like = 0;*/
 
         $result = $req->Fetch();
         return $result['compteur'];

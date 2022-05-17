@@ -207,20 +207,7 @@ switch ($action) {
         include 'vue/mdpOublier.php';
         break;
 
-    case 'UpdateProductionInfos':
-        //Filtrage des données qui vont être modifiées
-        $titre = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-        $description = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-        $categorie = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $image = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-        Production::UpdateProductionInfos($titre, $description, $categorie, $image);
-
-        $_SESSION['AlertMessage'] = [
-            'type' => "success",
-            'message' => "La production " . $titre . " a bien été mise à jour"
-        ];
-        header('Location: index.php?uc=login&action=ShowProductions');
-        break;
+   
 
         case 'ShowPageFAQ':
             //Affiche la page de FAQ (c'est le manuel utilisateur, il est inclu dans le site web)

@@ -1,5 +1,12 @@
-<div class="container">
+<div class="container" style="display: block; margin-top: 3vh; position:relative;">
     <?php
+
+    //Si l'utilisateur accède à cette page par erreur ou bien volontairement, il est instantanément redirigé vers l'accueil (index.php)
+    if ($_SESSION['connectedUser']['isAdmin'] == 2) {
+    } else {
+        header('Location: index.php');
+    }
+
     if ($_SESSION['AlertMessage']['type'] != null) { ?>
         <div class="alert alert-<?= $_SESSION['AlertMessage']['type'] ?> alert-dismissible show" role="alert">
             <?= $_SESSION['AlertMessage']['message'] ?>
@@ -46,10 +53,10 @@
                 foreach (Categorie::GetAllCategories() as $categorie) {
                 ?>
                     <tr>
-                        <td><?= $categorie->getIdCategorie() ?></td>
+                        <td style="padding-left: 40px;"><?= $categorie->getIdCategorie() ?></td>
                         <td value="<?= $categorie->getIdCategorie() ?>"><?= $categorie->getNom() ?></td>
-                        <td>&nbsp;&nbsp;<a class="btn btn-success glyphicon glyphicon-edit" href="index.php?uc=admin&action=ShowEditCategorie&idCategorie=<?= $categorie->getIdCategorie() . '&nameCategorie=' . $categorie->GetCategorieNameById($categorie->getIdCategorie()) ?>"> </a></td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger glyphicon glyphicon-remove" href="index.php?uc=admin&action=deleteCategorie&idCategorie=<?= $categorie->getIdCategorie() ?>"> </a></td>
+                        <td style="padding-left: 20px;"><a class="btn btn-success glyphicon glyphicon-edit" href="index.php?uc=admin&action=ShowEditCategorie&idCategorie=<?= $categorie->getIdCategorie() . '&nameCategorie=' . $categorie->GetCategorieNameById($categorie->getIdCategorie()) ?>"> </a></td>
+                        <td style="padding-left: 32px;"><a class="btn btn-danger glyphicon glyphicon-remove" href="index.php?uc=admin&action=deleteCategorie&idCategorie=<?= $categorie->getIdCategorie() ?>"> </a></td>
                     </tr>
                 <?php } ?>
             </tbody>

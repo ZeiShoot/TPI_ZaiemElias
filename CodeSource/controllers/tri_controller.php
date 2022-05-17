@@ -10,6 +10,16 @@ switch ($action) {
         break;
 
 
+    case 'filterCategorie':
+
+        $_SESSION['filterCategorie'] = $_POST['categorieProduction'];
+        $_SESSION['orderProduction'] = $_POST['typeTri'];
+
+        header('Location: index.php?uc=trier&action=ShowTriForm');
+        exit;
+
+        break;
+
     default:
         include 'vue/erreur404.php';
         break;

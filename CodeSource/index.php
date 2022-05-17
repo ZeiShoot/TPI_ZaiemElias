@@ -27,6 +27,13 @@ require("models/like_unlike.php");
 
 $uc = filter_input(INPUT_GET, 'uc') == null ? "home" : filter_input(INPUT_GET, 'uc'); //Page d'accueil par défaut
 
+if(!isset($_SESSION['orderProduction'])){
+    $_SESSION['orderProduction'] = "date_soumission";
+}
+
+if(!isset($_SESSION['filterCategorie'])){
+    $_SESSION['filterCategorie']= 0;
+}
 
 //Visuel du header
 if ($uc != "getAllProductions") {

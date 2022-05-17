@@ -138,26 +138,6 @@ switch ($action) {
         header('Location: index.php');
         break;
 
-    case 'delete':
-        // récupération du post avec un filter input
-        $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
-
-        // suppression des images
-        $medias = Media::getAllMediasByPostId($idProduction);
-
-        // debut de la transaction
-        MonPdo::getInstance()->beginTransaction();
-
-        Production::DeleteProduction($idProduction);
-        MonPdo::getInstance()->commit();
-        $_SESSION['message'] = [
-            'type' => "success",
-            //Message de réussite affiché.
-            'content' => "La production à été supprimée avec succès"
-        ];
-        header('Location: index.php?uc=production&action=ShowMyProductions');
-        break;
-
     case 'ShowMyProductions':
         //Affiche la page des productions publiées par l'utilisateur
         include 'vue/myProductions.php';
@@ -166,15 +146,22 @@ switch ($action) {
         //Suppression d'une production et de son média (image stockée en locale)
     case 'deleteProduction':
         $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
-
         //Va chercher le média dans les assets et le supprime puis redirige vers la page Myproduction
         if (unlink("./assets/medias/" . Production::GetMediaNameByProductionId($idProduction))) {
             Production::DeleteProduction($idProduction);
-            header('Location: index.php?uc=production&action=ShowMyProductions');
         }
+        //Message de réussie
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "La production a bien été supprimée de la base de données !"
+        ];
+        //Redirige l'utilisateur puis affiche le message de réussite
+        header('Location: index.php?uc=production&action=ShowMyProductions');
         break;
 
     case 'ShowEditProductionPage':
+        $idProduction = filter_input(INPUT_GET, 'idProduction', FILTER_SANITIZE_NUMBER_INT);
+        $production = Production::GetProdutionById($idProduction);
         //Affiche la page des productions publiées par l'utilisateur
         include 'vue/editProduction.php';
         break;
@@ -191,6 +178,22 @@ switch ($action) {
         $like->EditLikePost();
 
         header('Location: index.php');
+        break;
+
+    case 'UpdateProductionInfos':
+        //Filtrage des données qui vont être modifiées
+        $titre = filter_input(INPUT_POST, 'titre', FILTER_SANITIZE_STRING);
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+        $categorie = filter_input(INPUT_POST, 'categorie', FILTER_SANITIZE_EMAIL);
+        Production::UpdateProductionInfos($titre, $description, $categorie, $image, $date_modification);
+        //Message de réussie
+        $_SESSION['AlertMessage'] = [
+            'type' => "success",
+            'message' => "La production " . $titre . " a bien été modifié dans la base de données."
+        ];
+        //Redirection de l'utilisateur
+        header('Location: index.php?uc=login&action=ShowProductions');
+
         break;
 
     default:

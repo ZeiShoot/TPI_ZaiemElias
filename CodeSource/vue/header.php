@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
   <div class="wrapper">
     <div class="box">
       <div class="row row-offcanvas row-offcanvas-left">
@@ -31,7 +30,6 @@
                     <a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                   </li>
 
-
                   <?php
                   if ($_SESSION['connectedUser']['isConnected'] == false) {
                   ?>
@@ -47,13 +45,12 @@
                     <li>
                       <a href="index.php?uc=trier&action=ShowTriForm"><i class="glyphicon glyphicon-list-alt"></i> Trier</a>
                     </li>
-                    <li>
-                      <a href="index.php?uc=login&action=ShowPageFAQ"><i class="glyphicon glyphicon-question-sign"></i> Aide</a>
-                    </li>
                   <?php
                   }
                   ?>
-
+                  <li>
+                    <a href="index.php?uc=login&action=ShowPageFAQ"><i class="glyphicon glyphicon-question-sign"></i> Aide</a>
+                  </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   <?php
@@ -65,12 +62,14 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                         <?php
+                        //Si l'utilisateur connecté n'est pas un admin alors on affiche pas le texte "Administrateur" ni le logo admin
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
                         ?>
                           <i><b>Administrateur&nbsp;</b></i>
                           <i class="glyphicon glyphicon-cog"></i>
                         <?php
                         } else {
+                          //Sinon on affiche juste le logo
                         ?>
                           <i class="glyphicon glyphicon-cog"></i>
                         <?php
@@ -82,11 +81,12 @@
                         <li><a href="index.php?uc=production&action=ShowMyProductions">Mes Productions</a></li>
                         <?php
                         if ($_SESSION['connectedUser']['isAdmin'] == 2) {
+                          //Si c'est un administrateur, on affiche les 2 pages administratives, sinon on affiche rien.
                         ?>
-                          <li><a href="index.php?uc=admin&action=ShowAdminPannel">Administration</a></li>
+                          <li><a href="index.php?uc=admin&action=ShowCategorieAdminPannel">CRUD Des Catégories</a></li>
+                          <li><a href="index.php?uc=admin&action=ShowUserAdminPannel">Gestion Des Droits</a></li>
                         <?php
                         } ?>
-
                         <li><a href="index.php?uc=login&action=disconnect">Se Déconnecter</a></li>
                       </ul>
                     </li>
@@ -97,4 +97,3 @@
               </nav>
             </div>
           </div>
-          <!-- /top nav -->

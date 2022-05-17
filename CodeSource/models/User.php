@@ -276,6 +276,17 @@ class User
         return $result->getUserName();
     }
 
+    //Récupère tout les utilisateurs
+    public static function GetAllUsers()
+    {
+        $req = MonPdo::getInstance()->prepare("SELECT * FROM utilisateurs");
+        $req->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $req->execute();
+        $result = $req->fetchAll();
+
+        return $result;
+    }
+
     //Fonction qui met à jour les informations de l'utilisateur (page profil)
     public static function UpdateUserInfos($UserName, $FirstName, $LastName, $Email)
     {
@@ -316,6 +327,18 @@ class User
         $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET `PasswordChiffrer`=:PASSWORDSHA256 WHERE `Email`=:EMAIL");
         $req->bindParam(':PASSWORDSHA256', $PasswordChiffrer);
         $req->bindParam(':EMAIL', $email);
+        $req->execute();
+
+    }
+
+    //Fonction qui permet de générer un nouveau mot de passe en cas d'oubli.
+    public static function UpdateUserRole($idUser, $statut)
+    {
+       
+        //Insertion dans la base du nouveau mdp
+        $req = MonPdo::getInstance()->prepare("UPDATE utilisateurs SET `isAdmin`=:isAdmin WHERE `idUser`=:idUser");
+        $req->bindParam(':isAdmin', $statut);
+        $req->bindParam(':idUser', $idUser);
         $req->execute();
 
     }
