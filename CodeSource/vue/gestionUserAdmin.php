@@ -1,3 +1,20 @@
+<!--
+
+
+███████╗░█████╗░████████╗░█████╗░██╗░██████╗░░█████╗░██╗░░░░░
+██╔════╝██╔══██╗╚══██╔══╝██╔══██╗╚█║██╔════╝░██╔══██╗██║░░░░░
+█████╗░░██║░░██║░░░██║░░░██║░░██║░╚╝██║░░██╗░███████║██║░░░░░
+██╔══╝░░██║░░██║░░░██║░░░██║░░██║░░░██║░░╚██╗██╔══██║██║░░░░░
+██║░░░░░╚█████╔╝░░░██║░░░╚█████╔╝░░░╚██████╔╝██║░░██║███████╗
+╚═╝░░░░░░╚════╝░░░░╚═╝░░░░╚════╝░░░░░╚═════╝░╚═╝░░╚═╝╚══════╝
+
+
+𝔸𝕦𝕥𝕖𝕦𝕣 : Elias Zaiem
+𝔻𝕒𝕥𝕖 : 18.05.2022
+ℙ𝕣𝕠𝕛𝕖𝕥 : TPI Elias Zaiem Mai-2022
+ℙ𝕣𝕠𝕗 𝔻𝕖 𝕋ℙ𝕀 : Mr.Garchery
+ℂ𝕝𝕒𝕤𝕤𝕖 : I.DA-P4A
+-->
 <div class="container" style="display: block; margin-top: 3vh; position:relative;">
     <?php
 
@@ -33,26 +50,26 @@
     </div>
     <div class="row">
         <br>
-        
-            <table class="table" style="background-color: #F0F0F0;">
-                <thead>
+
+        <table class="table" style="background-color: #F0F0F0;">
+            <thead>
+                <tr>
+                    <!--Haut du tableau-->
+                    <th scope="col">idUser</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">isAdmin</th>
+                    <th scope="col">Valider les changements</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach (User::GetAllUsers() as $user) {
+                ?>
                     <tr>
-                        <!--Haut du tableau-->
-                        <th scope="col">idUser</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Firstname</th>
-                        <th scope="col">Lastname</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">isAdmin</th>
-                        <th scope="col">Valider les changements</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach (User::GetAllUsers() as $user) {
-                    ?>
-                        <tr>
-                            <form method="POST" action="index.php?uc=admin&action=changeAdminRights&idUser=<?= $user->getIdUser() ?>">
+                        <form method="POST" action="index.php?uc=admin&action=changeAdminRights&idUser=<?= $user->getIdUser() ?>">
                             <td style="padding-left: 30px;"><?= $user->getIdUser() ?></td>
                             <td style="padding-left: 40px;"><?= $user->getUserName() ?></td>
                             <td style="padding-left: 40px;"><?= $user->getFirstName() ?></td>
@@ -60,11 +77,11 @@
                             <td style="padding-left: 10px;"><?= $user->getEmail() ?></td>
                             <td style="padding-left: 35px;"><input type="checkbox" name="isAdmin" value="checkbox<?= $user->getIdUser() ?>" <?= $user->getIsAdmin() == 2 ? "checked" : "" ?>></td>
                             <td style="padding-left: 70px;"><button type="submit" class="btn btn-success">Confirmer</button> </td>
-                            </form>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        
+                        </form>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+
     </div>
 </div>
