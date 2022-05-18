@@ -31,7 +31,8 @@ switch ($action) {
         $_SESSION['filterCategorie'] = $_POST['categorieProduction'];
         $_SESSION['orderProduction'] = $_POST['typeTri'];
 
-        header('Location: index.php?uc=trier&action=ShowTriForm');
+        //header('Location: index.php?uc=trier&action=ShowTriForm');
+        echo '<script>window.location.href = "index.php?uc=trier&action=ShowTriForm";</script>';
         exit;
         break;
 

@@ -43,7 +43,9 @@ switch ($action) {
                     'type' => "danger",
                     'message' => "Seulement les images sont supportées !"
                 ];
-                header('Location: index.php?uc=post&action=show');
+                //header('Location: index.php?uc=post&action=show');
+                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                exit;
             }
 
             $fileMo = Production::ConvertOctetsToMO($fichier['size'][0]);
@@ -53,7 +55,9 @@ switch ($action) {
                     'type' => "danger",
                     'message' => "L'image ne doit pas dépasser les 5 Mo !"
                 ];
-                header('Location: index.php?uc=post&action=show');
+                //header('Location: index.php?uc=post&action=show');
+                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                exit;
             }
 
             //Récupère la date du jour
@@ -85,14 +89,18 @@ switch ($action) {
                     'type' => "success",
                     'message' => "Vous avez posté avec succès !"
                 ];
-                header('Location: index.php?');
+                //header('Location: index.php');
+                echo '<script>window.location.href = "index.php";</script>';
+                exit;
             } else {
                 // retourne un message d'erreur si les champs ne sonts pas remplis
                 $_SESSION['AlertMessage'] = [
                     'type' => "danger",
                     'message' => "L'image n'a pas pu être publié  !"
                 ];
-                header('Location: index.php?uc=post&action=show');
+                //header('Location: index.php?uc=post&action=show');
+                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                exit;
             }
         } else {
             // retourne un message d'erreur si les champs ne sonts pas remplis
@@ -100,7 +108,9 @@ switch ($action) {
                 'type' => "danger",
                 'message' => "Tout les champs doivent êtres rempli  !"
             ];
-            header('Location: index.php?uc=post&action=show');
+            //header('Location: index.php?uc=post&action=show');
+            echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+            exit;
         }
         break;
 
@@ -122,7 +132,10 @@ switch ($action) {
             'type' => "success",
             'message' => "Vous avez liké le post"
         ];
-        header('Location: index.php');
+        //Redirige l'utilisateur vers l'index
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
+        exit;
         break;
 
     case 'dislike':
@@ -137,7 +150,9 @@ switch ($action) {
             'type' => "danger",
             'message' => "Vous avez disliké le post"
         ];
-        header('Location: index.php');
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
+        exit;
         break;
 
 
@@ -152,7 +167,9 @@ switch ($action) {
             ->setLike($numberLike);
         $like->EditLikePost();
 
-        header('Location: index.php');
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
+        exit;
         break;
 
     case 'ShowMyProductions':
@@ -173,7 +190,9 @@ switch ($action) {
             'message' => "La production a bien été supprimée de la base de données !"
         ];
         //Redirige l'utilisateur puis affiche le message de réussite
-        header('Location: index.php?uc=production&action=ShowMyProductions');
+        //header('Location: index.php?uc=production&action=ShowMyProductions');
+        echo '<script>window.location.href = "index.php?uc=production&action=ShowMyProductions";</script>';
+        exit;
         break;
 
     case 'ShowEditProductionPage':
@@ -194,7 +213,9 @@ switch ($action) {
             ->setLike($numberLike);
         $like->EditLikePost();
 
-        header('Location: index.php');
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
+        exit;
         break;
 
     case 'UpdateProductionInfos':
@@ -211,8 +232,10 @@ switch ($action) {
             'message' => "La production " . $titre . " a bien été modifié dans la base de données."
         ];
         //Redirection de l'utilisateur
-        header('Location: index.php?uc=production&action=ShowMyProductions');
 
+        //Suite a une erreur que j'ai jamais eu de ma vie, je ne peux plus utiliser les header location pour regiriger vers une page... je dois donc utiliser une autre technique vraiment moche mais qui fonctionne. Désole pour le code de mauvaise qualité
+        //header('Location: index.php?uc=production&action=ShowMyProductions');
+        echo '<script>window.location.href = "index.php?uc=production&action=ShowMyProductions";</script>';
         break;
 
     default:

@@ -21,7 +21,8 @@
     //Si l'utilisateur accède à cette page par erreur ou bien volontairement, il est instantanément redirigé vers l'accueil (index.php)
     if ($_SESSION['connectedUser']['isAdmin'] == 2) {
     } else {
-        header('Location: index.php');
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
     }
 
     if ($_SESSION['AlertMessage']['type'] != null) { ?>

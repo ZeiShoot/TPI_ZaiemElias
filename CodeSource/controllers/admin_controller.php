@@ -54,7 +54,8 @@ switch ($action) {
             ];
         }
 
-        header('Location: index.php?uc=admin&action=ShowUserAdminPannel');
+        //header('Location: index.php?uc=admin&action=ShowUserAdminPannel');
+        echo '<script>window.location.href = "index.php?uc=admin&action=ShowUserAdminPannel";</script>';
         break;
 
         //Suppression d'une catégorie depuis la page admin
@@ -69,7 +70,8 @@ switch ($action) {
             'message' => "La Catégorie " . $nom . " a bien été supprimé de la base de données."
         ];
         //Redirige l'administrateur sur la page de gestion
-        header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        //header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        echo '<script>window.location.href = "index.php?uc=admin&action=ShowCategorieAdminPannel";</script>';
         break;
 
         //Ajoute une catégorie dans la base de données
@@ -83,7 +85,8 @@ switch ($action) {
             'message' => "La nouvelle catégorie " . $CategorieName . " a bien été ajouté dans la base de données."
         ];
         //Redirection de l'administrateur
-        header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        //header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        echo '<script>window.location.href = "index.php?uc=admin&action=ShowCategorieAdminPannel";</script>';
         break;
 
         //Met à jour une catégorie (modification du nom de la catégorie)
@@ -98,7 +101,8 @@ switch ($action) {
             'message' => "La catégorie " . $nomCategorie . " a bien été modifié dans la base de données."
         ];
         //Redirection de l'administrateur
-        header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        //header('Location: index.php?uc=admin&action=ShowCategorieAdminPannel');
+        echo '<script>window.location.href = "index.php?uc=admin&action=ShowCategorieAdminPannel";</script>';
         break;
 
         //Page par défaut si il y a une erreur lors du chargement des autres pages.

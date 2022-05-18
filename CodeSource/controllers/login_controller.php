@@ -28,7 +28,8 @@ switch ($action) {
             //Affiche le formulaire de post
             include 'vue/login_form.php';
         } else {
-            header('Location: index.php');
+            //header('Location: index.php');
+            echo '<script>window.location.href = "index.php";</script>';
         }
         break;
 
@@ -47,7 +48,8 @@ switch ($action) {
             //Affiche le formulaire de post
             include 'vue/register_form.php';
         } else {
-            header('Location: index.php');
+            //header('Location: index.php');
+            echo '<script>window.location.href = "index.php";</script>';
         }
         break;
 
@@ -55,7 +57,8 @@ switch ($action) {
         //Affiche le formulaire de post
         session_destroy();
         session_unset();
-        header("Location:index.php");
+        //header("Location:index.php");
+        echo '<script>window.location.href = "index.php";</script>';
         break;
 
     case 'validateLogin':
@@ -81,13 +84,15 @@ switch ($action) {
                     'password' => $result->getPasswordChiffrer(),
                     'isAdmin' => $result->getIsAdmin()
                 ];
-                header('Location: index.php');
+                //header('Location: index.php');
+                echo '<script>window.location.href = "index.php";</script>';
             } else {
                 $_SESSION['AlertMessage'] = [
                     "type" => "danger",
                     "message" => "Un des champs n'est pas correct, veuillez réessayer..."
                 ];
-                header("Location: index.php?uc=login&action=ShowLoginForm");
+                //header("Location: index.php?uc=login&action=ShowLoginForm");
+                echo '<script>window.location.href = "index.php?uc=login&action=ShowLoginForm";</script>';
                 exit();
             }
         } else {
@@ -95,7 +100,8 @@ switch ($action) {
                 "type" => "danger",
                 "message" => "Merci de remplir tout les champs."
             ];
-            header("Location : index.php?uc=login&action=ShowLoginForm");
+            //header("Location : index.php?uc=login&action=ShowLoginForm");
+            echo '<script>window.location.href = "index.php?uc=login&action=ShowLoginForm";</script>';
             exit();
         }
         break;
@@ -129,7 +135,8 @@ switch ($action) {
                     $user->setFirstName($firstname)->setLastName($lastname)->setEmail($email)->setPasswordChiffrer($password)->setUserName($username);
                     //Appel la fonction createUser (qui ajoute l'utilisateur en base de données)
                     User::CreateUser($user);
-                    header("Location:index.php?uc=login&action=ShowLoginForm");
+                    //header("Location:index.php?uc=login&action=ShowLoginForm");
+                    echo '<script>window.location.href = "index.php?uc=login&action=ShowLoginForm";</script>';
                     $_SESSION['AlertMessage'] = [
                         "type" => "success",
                         "message" => "Vous avez bien créer votre compte, vous pouvez désormais vous connecter !"
@@ -137,7 +144,8 @@ switch ($action) {
                     exit;
                 } else {
                     //Si l'email est déjà pris alors on affiche un message d'erreur
-                    header("Location:index.php?uc=login&action=ShowRegisterForm");
+                    //header("Location:index.php?uc=login&action=ShowRegisterForm");
+                    echo '<script>window.location.href = "index.php?uc=login&action=ShowRegisterForm";</script>';
                     $_SESSION['AlertMessage'] = [
                         "type" => "danger",
                         "message" => "L'email existe déjà ! Veuillez en choisir un autre."
@@ -145,7 +153,8 @@ switch ($action) {
                 }
             } else {
                 //Si les mot de passe sont différents alors on affiche un message d'erreur
-                header("Location:index.php?uc=login&action=ShowRegisterForm");
+                //header("Location:index.php?uc=login&action=ShowRegisterForm");
+                echo '<script>window.location.href = "index.php?uc=login&action=ShowRegisterForm";</script>';
                 $_SESSION['AlertMessage'] = [
                     "type" => "danger",
                     "message" => "Les mots de passes ne correspondent pas !"
@@ -154,7 +163,8 @@ switch ($action) {
             }
         } else {
             //Si un un ou plusieurs champs sont vides, on affiche un message d'erreur
-            header("Location:index.php?uc=login&action=ShowRegisterForm");
+            //header("Location:index.php?uc=login&action=ShowRegisterForm");
+            echo '<script>window.location.href = "index.php?uc=login&action=ShowRegisterForm";</script>';
             $_SESSION['AlertMessage'] = [
                 "type" => "danger",
                 "message" => "Merci de remplir tout les champs."
@@ -190,7 +200,8 @@ switch ($action) {
             ];
         }
 
-        header("Location:index.php?uc=login&action=ShowProfile");
+        //header("Location:index.php?uc=login&action=ShowProfile");
+        echo '<script>window.location.href = "index.php?uc=login&action=ShowProfile";</script>';
         exit;
 
         break;
@@ -207,8 +218,8 @@ switch ($action) {
             'type' => "success",
             'message' => "Le profil de " . $username . " a bien été mis à jour"
         ];
-        header('Location: index.php');
-
+        //header('Location: index.php');
+        echo '<script>window.location.href = "index.php";</script>';
         break;
 
     case 'randomPasswordGeneration':

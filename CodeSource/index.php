@@ -33,7 +33,6 @@ if (!isset($_SESSION['connectedUser'])) {
         'message' => null
     ];
 }
-ini_set('display_errors', 1);
 
 //Include des fichiers nécéssaires
 require("models/db_connect.php");
