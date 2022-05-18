@@ -43,8 +43,8 @@ switch ($action) {
                     'type' => "danger",
                     'message' => "Seulement les images sont supportées !"
                 ];
-                //header('Location: index.php?uc=post&action=show');
-                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                //header('Location: index.php?uc=production&action=show');
+                echo '<script>window.location.href = "index.php?uc=production&action=show";</script>';
                 exit;
             }
 
@@ -55,8 +55,8 @@ switch ($action) {
                     'type' => "danger",
                     'message' => "L'image ne doit pas dépasser les 5 Mo !"
                 ];
-                //header('Location: index.php?uc=post&action=show');
-                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                //header('Location: index.php?uc=production&action=show');
+                echo '<script>window.location.href = "index.php?uc=production&action=show";</script>';
                 exit;
             }
 
@@ -98,8 +98,8 @@ switch ($action) {
                     'type' => "danger",
                     'message' => "L'image n'a pas pu être publié  !"
                 ];
-                //header('Location: index.php?uc=post&action=show');
-                echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+                //header('Location: index.php?uc=production&action=show');
+                echo '<script>window.location.href = "index.php?uc=production&action=show";</script>';
                 exit;
             }
         } else {
@@ -108,8 +108,8 @@ switch ($action) {
                 'type' => "danger",
                 'message' => "Tout les champs doivent êtres rempli  !"
             ];
-            //header('Location: index.php?uc=post&action=show');
-            echo '<script>window.location.href = "index.php?uc=post&action=show";</script>';
+            //header('Location: index.php?uc=production&action=show');
+            echo '<script>window.location.href = "index.php?uc=production&action=show";</script>';
             exit;
         }
         break;
@@ -130,7 +130,7 @@ switch ($action) {
 
         $_SESSION['AlertMessage'] = [
             'type' => "success",
-            'message' => "Vous avez liké le post"
+            'message' => "Vous avez liké la production"
         ];
         //Redirige l'utilisateur vers l'index
         //header('Location: index.php');
@@ -148,7 +148,7 @@ switch ($action) {
 
         $_SESSION['AlertMessage'] = [
             'type' => "danger",
-            'message' => "Vous avez disliké le post"
+            'message' => "Vous avez disliké la production"
         ];
         //header('Location: index.php');
         echo '<script>window.location.href = "index.php";</script>';
