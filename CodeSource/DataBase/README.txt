@@ -12,4 +12,10 @@ Comment installer la base de données sur un ordinateur en local.
 
 
 
-© Elias Zaiem TPI Mai-2022
+Le compte administrateur pour le site web est :
+
+adresse email :
+Admin@gmail.com
+
+mot de passe :
+SuperAdmin
