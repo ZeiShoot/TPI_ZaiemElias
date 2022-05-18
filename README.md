@@ -259,7 +259,9 @@
 
 ### Après-midi:
 
-- 12:40 : 
+- 12:40 : Je règles les bugs et corrige certaines choses
+
+-  14:00 : Je commence à exporter en pdf mon code et tout les documents qui doivent être rendu au format pdf.
 
 - 16:45 : Fin de journée. J'ai rendu le tpi sur classroom et envoyé tout les documents à mon prof et à mes experts.
 
@@ -267,6 +269,7 @@
 	- Bugs corrigé
 	- Documentation
 	- Remise des documents
+	- Exportation du code au format pdf
 	
 	
 	
